@@ -1,29 +1,32 @@
-import React, {FC, useState} from 'react'
+import React, {FC} from 'react'
 import {Link} from 'react-router-dom'
 import {Box, List, ListItemButton, ListItem, ListItemText, ListItemIcon, Divider} from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import {ISideBarItem} from 'models/types/components'
 import {TEXT_COLOR, BACKGROUND_COLOR} from 'const/styles'
+import {useAppSelector, useAppDispatch} from 'store/config'
+import {setSideBarState} from 'store/slices/commonSlice'
 
 interface Props {
     items: ISideBarItem[]
 }
 
 const SideBar: FC<Props> = (props) => {
-    const [open, setOpen] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const {isOpenSideBar} = useAppSelector(state => state.commonReducer)
 
-    const changeSideBarState = () => setOpen(!open)
+    const changeSideBarState = () => dispatch(setSideBarState())
 
     return (
         <Box sx={styles.main}>
             <List>
                 <ListItem disablePadding onClick={changeSideBarState}>
-                    <ListItemButton sx={{justifyContent: `${open ? 'end' : 'start'}`}}>
-                        <ListItemIcon sx={{minWidth: '2rem', marginRight: open ? '1rem' : 0}}>
-                            {!open && <ArrowForwardIosIcon sx={styles.arrowIcon}/>}
+                    <ListItemButton sx={{justifyContent: `${isOpenSideBar ? 'end' : 'start'}`}}>
+                        <ListItemIcon sx={{minWidth: '2rem', marginRight: isOpenSideBar ? '1rem' : 0}}>
+                            {!isOpenSideBar && <ArrowForwardIosIcon sx={styles.arrowIcon}/>}
                         </ListItemIcon>
-                        {open && <ArrowBackIosNewIcon sx={styles.arrowIcon}/>}
+                        {isOpenSideBar && <ArrowBackIosNewIcon sx={styles.arrowIcon}/>}
                     </ListItemButton>
                 </ListItem>
                 <Divider sx={styles.divider}/>
@@ -32,10 +35,10 @@ const SideBar: FC<Props> = (props) => {
                     return (
                         <ListItem disablePadding key={pk}>
                             <ListItemButton component={Link} to={item.link} sx={styles.listItemButton}>
-                                <ListItemIcon sx={{minWidth: '2rem', marginRight: open ? '1rem' : 0}}>
+                                <ListItemIcon sx={{minWidth: '2rem', marginRight: isOpenSideBar ? '1rem' : 0}}>
                                     {item.icon}
                                 </ListItemIcon>
-                                {open && <ListItemText primary={item.title} sx={styles.listItemText}/>}
+                                {isOpenSideBar && <ListItemText primary={item.title} sx={styles.listItemText}/>}
                             </ListItemButton>
                         </ListItem>
                     )
