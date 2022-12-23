@@ -1,3 +1,7 @@
 export enum PAGE {
-    HOME = '/'
+    HOME = '/',
+
+    SPECIALISTS = '/specialists',
+
+    PROJECTS = '/projects',
 }
