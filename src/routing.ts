@@ -5,3 +5,7 @@ export enum PAGE {
 
     PROJECTS = '/projects',
 }
+
+export enum API {
+    SPECIALISTS = '/specialists'
+}
