@@ -1,5 +1,5 @@
 import {LOADING_STATE} from 'models/enums/common'
-import {ISpecialist} from 'models/types/specialist'
+import {ISpecialist, ISpecialistWithToken} from 'models/types/specialist'
 
 interface State {
     status: number | null
@@ -10,4 +10,12 @@ interface State {
 // Specialist States
 export interface IListSpecialistsState extends State {
     data: ISpecialist[] | null
+}
+
+export interface ICreateSpecialistState extends State {
+    data: ISpecialistWithToken | null
+}
+
+export interface IAuthenticateSpecialistState extends State {
+    data: ISpecialistWithToken | null
 }

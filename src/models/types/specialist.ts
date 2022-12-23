@@ -28,3 +28,7 @@ export interface ISpecialist {
     country: string
     city: string
 }
+
+export interface ISpecialistWithToken extends ISpecialist {
+    token: string
+}

@@ -4,7 +4,11 @@ import {Method} from 'models/enums/common'
 import {BASE_API_URL, DEFAULT_INITIAL_STATE} from 'const/common'
 import {API} from 'routing'
 import {request} from 'utils/api'
-import {IListSpecialistsState} from 'models/types/states'
+import {
+    IListSpecialistsState,
+    ICreateSpecialistState,
+    IAuthenticateSpecialistState
+} from 'models/types/states'
 
 export const useListSpecialists = () => {
     const [{status, data, error, loading}, setState] = useState<IListSpecialistsState>(DEFAULT_INITIAL_STATE)
@@ -19,4 +23,37 @@ export const useListSpecialists = () => {
     }
 
     return {status, data, error, loading, getSpecialists}
+}
+
+export const useCreateSpecialist = () => {
+    const [{status, data, error, loading}, setState] = useState<ICreateSpecialistState>(DEFAULT_INITIAL_STATE)
+
+    const registrate = (data: any) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.CREATE_SPECIALIST,
+            method: Method.POST,
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, registrate}
+}
+
+export const useAuthenticateSpecialist = () => {
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IAuthenticateSpecialistState>(DEFAULT_INITIAL_STATE)
+
+    const authenticate = (data: any) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.AUTHENTICATE_SPECIALIST,
+            method: Method.POST,
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, authenticate}
 }
