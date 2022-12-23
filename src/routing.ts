@@ -10,5 +10,7 @@ export enum PAGE {
 export enum API {
     SPECIALISTS = '/specialists',
     CREATE_SPECIALIST = '/specialists/creation',
-    AUTHENTICATE_SPECIALIST = '/specialists/authentication'
+    AUTHENTICATE_SPECIALIST = '/specialists/authentication',
+
+    PROJECTS = '/projects'
 }

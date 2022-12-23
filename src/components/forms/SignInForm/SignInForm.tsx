@@ -34,10 +34,12 @@ const SignInForm: FC<Props> = (props) => {
         }
     }, [error])
 
-    if (data) {
-        login(data.nickname, data.token)
-        props.setAuthState(true)
-    }
+    useEffect(() => {
+        if (data) {
+            login(data.nickname, data.token)
+            props.setAuthState(true)
+        }
+    }, [data])
 
     return (
         <form onSubmit={handleSubmit(submit)} style={styles.form}>
