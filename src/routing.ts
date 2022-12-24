@@ -8,6 +8,9 @@ export enum PAGE {
 }
 
 export enum API {
+    LANGUAGES = '/languages',
+    TECHNOLOGIES = '/technologies',
+
     SPECIALISTS = '/specialists',
     CREATE_SPECIALIST = '/specialists/creation',
     AUTHENTICATE_SPECIALIST = '/specialists/authentication',
