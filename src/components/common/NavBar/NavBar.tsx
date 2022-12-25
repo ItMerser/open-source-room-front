@@ -18,7 +18,7 @@ import {useAppSelector} from 'store/config'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 const NavBar: FC = () => {
-    const {isAuthenticated, nickname} = useAppSelector(state => state.specialistReducer)
+    const {isAuthenticated, specialistId, nickname} = useAppSelector(state => state.specialistReducer)
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
@@ -30,23 +30,20 @@ const NavBar: FC = () => {
         <AppBar position="static" sx={styles.appBar}>
             <Toolbar sx={styles.toolBar}>
                 <Button component={Link} to={PAGE.HOME} sx={styles.button}>APP</Button>
-                {
-                    isAuthenticated
-                        ? <Tooltip title="menu">
-                            <Button
-                                component={Link}
-                                to=""
-                                sx={styles.button}
-                                onClick={handleClick}
-                                size="small"
-                                aria-controls={open ? 'account-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                            >
-                                {nickname}
-                            </Button>
-                        </Tooltip>
-                        : <Button component={Link} to={PAGE.AUTHENTICATION} sx={styles.button}>SIGN IN</Button>
+                {isAuthenticated
+                    ? <Tooltip title="menu">
+                        <Button
+                            sx={styles.button}
+                            onClick={handleClick}
+                            size="small"
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >
+                            {nickname}
+                        </Button>
+                      </Tooltip>
+                    : <Button component={Link} to={PAGE.AUTHENTICATION} sx={styles.button}>SIGN IN</Button>
                 }
             </Toolbar>
 
@@ -85,10 +82,15 @@ const NavBar: FC = () => {
                 transformOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
-                <MenuItem component={Link} to="">
-                    <Avatar/>
-                    Profile
-                </MenuItem>
+                {specialistId &&
+                    <MenuItem
+                        component={Link}
+                        to={PAGE.PROFILE.replace(':specialistId', specialistId)}
+                    >
+                        <Avatar/>
+                        Profile
+                    </MenuItem>
+                }
                 <Divider/>
                 <MenuItem component="button" onClick={logout}>
                     <ListItemIcon>

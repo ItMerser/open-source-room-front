@@ -6,6 +6,7 @@ import {API} from 'routing'
 import {request} from 'utils/api'
 import {
     IListSpecialistsState,
+    IRetrieveSpecialistState,
     ICreateSpecialistState,
     IAuthenticateSpecialistState
 } from 'models/types/states'
@@ -23,6 +24,23 @@ export const useListSpecialists = () => {
     }
 
     return {status, data, error, loading, getSpecialists}
+}
+
+export const useRetrieveSpecialist = () => {
+  const [
+    {status, data, error, loading},
+    setState
+  ] = useState<IRetrieveSpecialistState>(DEFAULT_INITIAL_STATE)
+
+  const getSpecialist = (specialistId: number) => {
+    const config: AxiosRequestConfig = {
+      url: BASE_API_URL + API.RETRIEVE_SPECIALIST.replace(':specialistId', specialistId.toString()),
+      method: Method.GET
+    }
+    request(config, setState)
+  }
+
+  return {status, data, error, loading, getSpecialist}
 }
 
 export const useCreateSpecialist = () => {

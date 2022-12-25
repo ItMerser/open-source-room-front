@@ -36,7 +36,7 @@ const SignInForm: FC<Props> = (props) => {
 
     useEffect(() => {
         if (data) {
-            login(data.nickname, data.token)
+            login(data.id, data.nickname, data.token)
             props.setAuthState(true)
         }
     }, [data])

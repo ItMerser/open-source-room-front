@@ -13,6 +13,10 @@ export interface IListSpecialistsState extends State {
     data: ISpecialist[] | null
 }
 
+export interface IRetrieveSpecialistState extends State {
+    data: ISpecialist | null
+}
+
 export interface ICreateSpecialistState extends State {
     data: ISpecialistWithToken | null
 }

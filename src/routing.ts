@@ -3,6 +3,8 @@ export enum PAGE {
     AUTHENTICATION = '/authentication',
 
     SPECIALISTS = '/specialists',
+    PROFILE = '/specialists/:specialistId/profile',
+    RESUME = '/specialists/:specialistId/resume',
 
     PROJECTS = '/projects',
 }
@@ -12,6 +14,7 @@ export enum API {
     TECHNOLOGIES = '/technologies',
 
     SPECIALISTS = '/specialists',
+    RETRIEVE_SPECIALIST = '/specialists/:specialistId',
     CREATE_SPECIALIST = '/specialists/creation',
     AUTHENTICATE_SPECIALIST = '/specialists/authentication',
 
