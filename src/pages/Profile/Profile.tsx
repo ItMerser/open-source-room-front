@@ -32,13 +32,17 @@ const Profile: FC = () => {
 
                 {specialist && <AboutBlock about={specialist.about}/>}
 
-                {specialist && <LanguagesBlock languages={specialist.languages}/>}
+                {specialist && <LanguagesBlock specialistLanguages={specialist.languages} isAddable={true}/>}
 
-                {specialist && <TechnologiesBlock technologies={specialist.technologies}/>}
+                {specialist &&
+                    <TechnologiesBlock specialistTechnologies={specialist.technologies} isAddable={true}/>
+                }
 
                 {specialist && <ProjectsBlock title="PROJECTS" projects={specialist.projects}/>}
 
-                {specialist && <ProjectsBlock title="SELF PROJECTS" projects={specialist.selfProjects} isAddable={true}/>}
+                {specialist &&
+                    <ProjectsBlock title="SELF PROJECTS" projects={specialist.selfProjects} isAddable={true}/>
+                }
             </Box>
         </Box>
     )

@@ -29,14 +29,21 @@ const Resume: FC = () => {
 
                 {specialist?.about && <AboutBlock about={specialist.about}/>}
 
-                {specialist?.languages.length !== 0 && <LanguagesBlock languages={specialist?.languages || []}/>}
-
-                {specialist?.selfProjects.length !== 0 && <TechnologiesBlock technologies={specialist?.technologies || []}/>}
-
-                {specialist?.projects.length !== 0 && <ProjectsBlock title="PROJECTS" projects={specialist?.projects || []}/>}
+                {specialist?.languages.length !== 0 &&
+                    <LanguagesBlock specialistLanguages={specialist?.languages || []}/>
+                }
 
                 {specialist?.selfProjects.length !== 0 &&
-                    <ProjectsBlock title="SELF PROJECTS" projects={specialist?.selfProjects || []}/>}
+                    <TechnologiesBlock specialistTechnologies={specialist?.technologies || []}/>
+                }
+
+                {specialist?.projects.length !== 0 &&
+                    <ProjectsBlock title="PROJECTS" projects={specialist?.projects || []}/>
+                }
+
+                {specialist?.selfProjects.length !== 0 &&
+                    <ProjectsBlock title="SELF PROJECTS" projects={specialist?.selfProjects || []}/>
+                }
             </Box>
         </Box>
     )

@@ -60,7 +60,7 @@ const ProfileMainInfoBlock: FC<Props> = (props) => {
                 </Button>
             }
 
-            {/*Form for updating specialist additional data*/}
+            {/*Form for updating specialist data*/}
             <Dialog open={patchForm} onClose={changePatchFormState}>
                 <DialogTitle textAlign="center">
                     Change the data witch you want to update

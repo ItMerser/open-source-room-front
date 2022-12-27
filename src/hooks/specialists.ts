@@ -9,7 +9,11 @@ import {
     IRetrieveSpecialistState,
     ICreateSpecialistState,
     IAuthenticateSpecialistState,
-    IUpdateSpecialistState
+    IUpdateSpecialistState,
+    IAddLanguagesToSpecialistState,
+    IAddTechnologiesToSpecialistState,
+    IRemoveSpecialistLanguages,
+    IRemoveSpecialistTechnologies
 } from 'models/types/states'
 
 export const useListSpecialists = () => {
@@ -28,20 +32,20 @@ export const useListSpecialists = () => {
 }
 
 export const useRetrieveSpecialist = () => {
-  const [
-    {status, data, error, loading},
-    setState
-  ] = useState<IRetrieveSpecialistState>(DEFAULT_INITIAL_STATE)
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IRetrieveSpecialistState>(DEFAULT_INITIAL_STATE)
 
-  const getSpecialist = (specialistId: number) => {
-    const config: AxiosRequestConfig = {
-      url: BASE_API_URL + API.RETRIEVE_SPECIALIST.replace(':specialistId', specialistId.toString()),
-      method: Method.GET
+    const getSpecialist = (specialistId: number) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.RETRIEVE_SPECIALIST.replace(':specialistId', specialistId.toString()),
+            method: Method.GET
+        }
+        request(config, setState)
     }
-    request(config, setState)
-  }
 
-  return {status, data, error, loading, getSpecialist}
+    return {status, data, error, loading, getSpecialist}
 }
 
 export const useCreateSpecialist = () => {
@@ -78,20 +82,96 @@ export const useAuthenticateSpecialist = () => {
 }
 
 export const useUpdateSpecialist = () => {
-  const [
-    {status, data, error, loading},
-    setState
-  ] = useState<IUpdateSpecialistState>(DEFAULT_INITIAL_STATE)
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IUpdateSpecialistState>(DEFAULT_INITIAL_STATE)
 
-  const update = (data: any, token: string) => {
-    const config: AxiosRequestConfig = {
-      url: BASE_API_URL + API.UPDATE_SPECIALIST,
-      method: Method.PATCH,
-      headers: {Authorization: `Token ${token}`},
-      data: data
+    const update = (data: any, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.UPDATE_SPECIALIST,
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
     }
-    request(config, setState)
-  }
 
-  return {status, data, error, loading, update}
+    return {status, data, error, loading, update}
+}
+
+export const useAddLanguagesToSpecialist = () => {
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IAddLanguagesToSpecialistState>(DEFAULT_INITIAL_STATE)
+
+    const addLanguages = (data: any, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.ADD_LANGUAGES_TO_SPECIALIST,
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, addLanguages}
+}
+
+export const useRemoveSpecialistLanguages = () => {
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IRemoveSpecialistLanguages>(DEFAULT_INITIAL_STATE)
+
+    const removeLanguages = (data: any, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.REMOVE_SPECIALIST_LANGUAGES,
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, removeLanguages}
+}
+
+export const useAddTechnologiesToSpecialist = () => {
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IAddTechnologiesToSpecialistState>(DEFAULT_INITIAL_STATE)
+
+    const addTechnologies = (data: any, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.ADD_TECHNOLOGIES_TO_SPECIALIST,
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, addTechnologies}
+}
+
+export const useRemoveSpecialistTechnologies = () => {
+    const [
+        {status, data, error, loading},
+        setState
+    ] = useState<IRemoveSpecialistTechnologies>(DEFAULT_INITIAL_STATE)
+
+    const removeTechnologies = (data: any, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.REMOVE_SPECIALIST_TECHNOLOGIES,
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, removeTechnologies}
 }

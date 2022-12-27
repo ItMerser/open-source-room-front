@@ -29,6 +29,22 @@ export interface IUpdateSpecialistState extends State {
     data: null
 }
 
+export interface IAddLanguagesToSpecialistState extends State {
+    data: null
+}
+
+export interface IRemoveSpecialistLanguages extends State {
+    data: null
+}
+
+export interface IAddTechnologiesToSpecialistState extends State {
+    data: null
+}
+
+export interface IRemoveSpecialistTechnologies extends State {
+    data: null
+}
+
 // Project States
 export interface IListProjectsState extends State {
     data: IProject[] | null
