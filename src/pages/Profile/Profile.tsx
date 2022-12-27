@@ -41,7 +41,7 @@ const Profile: FC = () => {
                 {specialist && <ProjectsBlock title="PROJECTS" projects={specialist.projects}/>}
 
                 {specialist &&
-                    <ProjectsBlock title="SELF PROJECTS" projects={specialist.selfProjects} isAddable={true}/>
+                    <ProjectsBlock title="SELF PROJECTS" projects={specialist.selfProjects} isEditable={true}/>
                 }
             </Box>
         </Box>

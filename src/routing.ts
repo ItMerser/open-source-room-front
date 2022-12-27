@@ -24,5 +24,6 @@ export enum API {
     REMOVE_SPECIALIST_TECHNOLOGIES = '/specialists/technologies/deletion',
 
     PROJECTS = '/projects',
-    CREATE_PROJECT = '/projects/creation'
+    CREATE_PROJECT = '/projects/creation',
+    DELETE_PROJECT = '/projects/:projectId/deletion'
 }

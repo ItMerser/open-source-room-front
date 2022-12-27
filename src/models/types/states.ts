@@ -53,3 +53,7 @@ export interface IListProjectsState extends State {
 export interface ICreateProjectsState extends State {
     data: IProject | null
 }
+
+export interface IDeleteProjectsState extends State {
+    data: {deletedProjectPk: number} | null
+}

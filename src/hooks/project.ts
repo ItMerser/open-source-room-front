@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {AxiosRequestConfig} from 'axios'
-import {ICreateProjectsState, IListProjectsState} from 'models/types/states'
+import {ICreateProjectsState, IDeleteProjectsState, IListProjectsState} from 'models/types/states'
 import {BASE_API_URL, DEFAULT_INITIAL_STATE} from 'const/common'
 import {API} from 'routing'
 import {Method} from 'models/enums/common'
@@ -35,4 +35,19 @@ export const useCreateProject = () => {
     }
 
     return {status, data, error, loading, create}
+}
+
+export const useDeleteProject = () => {
+    const [{status, data, error, loading}, setState] = useState<IDeleteProjectsState>(DEFAULT_INITIAL_STATE)
+
+    const deleteProject = (projectId: number, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.DELETE_PROJECT.replace(':projectId', projectId.toString()),
+            method: Method.DELETE,
+            headers: {Authorization: `Token ${token}`}
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, deleteProject}
 }

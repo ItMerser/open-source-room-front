@@ -8,7 +8,7 @@ import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 interface Props {
     title: string
     projects: ISpecialistProject[]
-    isAddable?: boolean
+    isEditable?: boolean
 }
 
 const ProjectsBlock: FC<Props> = (props) => {
@@ -19,11 +19,11 @@ const ProjectsBlock: FC<Props> = (props) => {
                 {props.projects.map((project, pk) => {
                     return (
                         <Grid item md={3} sm={6} xs={12} key={pk}>
-                            <ProfileProjectCard project={project}/>
+                            <ProfileProjectCard project={project} isEditable={props.isEditable}/>
                         </Grid>
                     )
                 })}
-                {props.isAddable &&
+                {props.isEditable &&
                     <Grid item md={3} sm={6} xs={12}>
                         <NewProfileProjectCard/>
                     </Grid>

@@ -1,16 +1,38 @@
-import React, {FC} from 'react'
+import React, {FC, useState, useEffect} from 'react'
 import {Button, Card, Typography, Box, Divider} from '@mui/material'
-import GitHubIcon from '@mui/icons-material/GitHub'
 import {lightGreen} from '@mui/material/colors'
+import GitHubIcon from '@mui/icons-material/GitHub'
 import {Link} from 'react-router-dom'
+import ConfirmDialog from 'components/helpers/ConfirmDialog/ConfirmDialog'
+import {useDeleteProject} from 'hooks/project'
+import {useAppSelector, useAppDispatch} from 'store/config'
+import {setUpdateProfileData} from 'store/slices/commonSlice'
 import {ISpecialistProject} from 'models/types/specialist'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
     project: ISpecialistProject
+    isEditable?: boolean
 }
 
 const ProfileProjectCard: FC<Props> = (props) => {
+    const {status, deleteProject} = useDeleteProject()
+    const {token} = useAppSelector(state => state.specialistReducer)
+    const [isOpenConfirmDialog, setIsOpenConfirmDialog] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+
+    const changeConfirmDialogState = () => setIsOpenConfirmDialog(!isOpenConfirmDialog)
+
+    const deleteProjectHandler = () => {
+        deleteProject(props.project.id, token || '')
+        changeConfirmDialogState()
+    }
+
+    useEffect(() => {
+        if (status === 200) {
+            dispatch(setUpdateProfileData())
+        }
+    }, [status])
 
     return (
         <Card variant="outlined" sx={styles.card}>
@@ -37,7 +59,21 @@ const ProfileProjectCard: FC<Props> = (props) => {
                 >
                     DETAIL
                 </Button>
+                {props.isEditable &&
+                    <Button sx={styles.button} onClick={changeConfirmDialogState}>
+                        DELETE
+                    </Button>
+                }
             </Box>
+
+            <ConfirmDialog
+                isOpen={isOpenConfirmDialog}
+                agreeResponse={deleteProjectHandler}
+                disagreeResponse={changeConfirmDialogState}
+                title="Do you really wanna delete this project"
+                agreeButtonText="DELETE"
+                disagreeButtonText="CANCEL"
+            />
         </Card>
     )
 }
@@ -48,7 +84,7 @@ const styles = {
     card: {
         margin: '1rem',
         backgroundColor: TEXT_COLOR,
-        minHeight: '10rem',
+        minHeight: '11rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',

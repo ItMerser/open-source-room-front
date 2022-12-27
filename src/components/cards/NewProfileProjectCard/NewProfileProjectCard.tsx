@@ -35,7 +35,7 @@ const styles = {
         margin: '1rem',
         background: TEXT_COLOR,
         position: 'relative',
-        minHeight: '10rem'
+        minHeight: '11rem'
     },
     addIcon: {
         width: '2rem',
