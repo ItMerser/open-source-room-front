@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {AxiosRequestConfig} from 'axios'
-import {IListProjectsState} from 'models/types/states'
+import {ICreateProjectsState, IListProjectsState} from 'models/types/states'
 import {BASE_API_URL, DEFAULT_INITIAL_STATE} from 'const/common'
 import {API} from 'routing'
 import {Method} from 'models/enums/common'
@@ -19,4 +19,20 @@ export const useListProjects = () => {
     }
 
     return {status, data, error, loading, getProjects}
+}
+
+export const useCreateProject = () => {
+    const [{status, data, error, loading}, setState] = useState<ICreateProjectsState>(DEFAULT_INITIAL_STATE)
+
+    const create = (data: unknown, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.CREATE_PROJECT,
+            method: Method.POST,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, create}
 }

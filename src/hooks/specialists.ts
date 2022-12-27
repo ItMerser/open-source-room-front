@@ -51,7 +51,7 @@ export const useRetrieveSpecialist = () => {
 export const useCreateSpecialist = () => {
     const [{status, data, error, loading}, setState] = useState<ICreateSpecialistState>(DEFAULT_INITIAL_STATE)
 
-    const registrate = (data: any) => {
+    const registrate = (data: unknown) => {
         const config: AxiosRequestConfig = {
             url: BASE_API_URL + API.CREATE_SPECIALIST,
             method: Method.POST,
@@ -69,7 +69,7 @@ export const useAuthenticateSpecialist = () => {
         setState
     ] = useState<IAuthenticateSpecialistState>(DEFAULT_INITIAL_STATE)
 
-    const authenticate = (data: any) => {
+    const authenticate = (data: unknown) => {
         const config: AxiosRequestConfig = {
             url: BASE_API_URL + API.AUTHENTICATE_SPECIALIST,
             method: Method.POST,
@@ -87,7 +87,7 @@ export const useUpdateSpecialist = () => {
         setState
     ] = useState<IUpdateSpecialistState>(DEFAULT_INITIAL_STATE)
 
-    const update = (data: any, token: string) => {
+    const update = (data: unknown, token: string) => {
         const config: AxiosRequestConfig = {
             url: BASE_API_URL + API.UPDATE_SPECIALIST,
             method: Method.PATCH,
@@ -125,7 +125,7 @@ export const useRemoveSpecialistLanguages = () => {
         setState
     ] = useState<IRemoveSpecialistLanguages>(DEFAULT_INITIAL_STATE)
 
-    const removeLanguages = (data: any, token: string) => {
+    const removeLanguages = (data: unknown, token: string) => {
         const config: AxiosRequestConfig = {
             url: BASE_API_URL + API.REMOVE_SPECIALIST_LANGUAGES,
             method: Method.PATCH,
@@ -144,7 +144,7 @@ export const useAddTechnologiesToSpecialist = () => {
         setState
     ] = useState<IAddTechnologiesToSpecialistState>(DEFAULT_INITIAL_STATE)
 
-    const addTechnologies = (data: any, token: string) => {
+    const addTechnologies = (data: unknown, token: string) => {
         const config: AxiosRequestConfig = {
             url: BASE_API_URL + API.ADD_TECHNOLOGIES_TO_SPECIALIST,
             method: Method.PATCH,
@@ -163,7 +163,7 @@ export const useRemoveSpecialistTechnologies = () => {
         setState
     ] = useState<IRemoveSpecialistTechnologies>(DEFAULT_INITIAL_STATE)
 
-    const removeTechnologies = (data: any, token: string) => {
+    const removeTechnologies = (data: unknown, token: string) => {
         const config: AxiosRequestConfig = {
             url: BASE_API_URL + API.REMOVE_SPECIALIST_TECHNOLOGIES,
             method: Method.PATCH,

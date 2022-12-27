@@ -22,3 +22,11 @@ export const updateSpecialistSchema = yup.object({
     country: yup.string(),
     city: yup.string()
 })
+
+export const createProjectSchema = yup.object({
+    name: yup.string().required('Field name is required'),
+    githubName: yup.string().required('Field github name is required'),
+    isPrivate: yup.boolean(),
+    type: yup.string().required('Field type is required'),
+    github: yup.string().url()
+})

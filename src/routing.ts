@@ -23,5 +23,6 @@ export enum API {
     ADD_TECHNOLOGIES_TO_SPECIALIST = '/specialists/technologies/adding',
     REMOVE_SPECIALIST_TECHNOLOGIES = '/specialists/technologies/deletion',
 
-    PROJECTS = '/projects'
+    PROJECTS = '/projects',
+    CREATE_PROJECT = '/projects/creation'
 }

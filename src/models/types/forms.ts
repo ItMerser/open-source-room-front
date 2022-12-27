@@ -1,3 +1,5 @@
+import {ProjectType} from 'models/enums/project'
+
 export interface ISignInForm {
     nickname?: string
     password?: string
@@ -19,4 +21,12 @@ export interface ISpecialistUpdatingForm {
     surname?: string,
     country?: string,
     city?: string
+}
+
+export interface IProjectCreationForm {
+    name?: string
+    githubName?: string
+    isPrivate?: boolean
+    type?: ProjectType
+    github?: string
 }

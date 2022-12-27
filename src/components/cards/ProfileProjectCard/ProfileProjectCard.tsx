@@ -48,7 +48,7 @@ const styles = {
     card: {
         margin: '1rem',
         backgroundColor: TEXT_COLOR,
-        minHeight: '35vh',
+        minHeight: '10rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',

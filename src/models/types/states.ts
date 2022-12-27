@@ -49,3 +49,7 @@ export interface IRemoveSpecialistTechnologies extends State {
 export interface IListProjectsState extends State {
     data: IProject[] | null
 }
+
+export interface ICreateProjectsState extends State {
+    data: IProject | null
+}
