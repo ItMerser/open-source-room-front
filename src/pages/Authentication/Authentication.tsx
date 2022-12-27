@@ -6,7 +6,7 @@ import {PAGE} from 'routing'
 import SideBar from 'components/common/SideBar/SideBar'
 import SignUpForm from 'components/forms/SignUpForm/SignUpForm'
 import SignInForm from 'components/forms/SignInForm/SignInForm'
-import {TEXT_COLOR} from 'const/styles'
+import {TEXT_COLOR, BACKGROUND_COLOR} from 'const/styles'
 
 interface TabItemProps {
     children?: ReactNode
@@ -90,7 +90,7 @@ const styles = {
     main: {
         display: 'flex',
         minHeight: '87vh',
-        backgroundColor: TEXT_COLOR
+        backgroundColor: BACKGROUND_COLOR
     },
     content: {
         display: 'flex',

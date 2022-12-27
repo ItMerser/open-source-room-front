@@ -10,7 +10,7 @@ import {updateSpecialistSchema} from 'models/validation/schemas'
 import {ISpecialistUpdatingForm} from 'models/types/forms'
 import {useUpdateSpecialist} from 'hooks/specialists'
 import {useAppDispatch, useAppSelector} from 'store/config'
-import {ERROR_MESSAGE_COLOR, TEXT_COLOR} from 'const/styles'
+import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR} from 'const/styles'
 import {DIRECTIONS} from 'const/common'
 import {ISpecialist} from 'models/types/specialist'
 import {setUpdateProfileData} from 'store/slices/commonSlice'
@@ -226,7 +226,7 @@ export default UpdateSpecialistDataForm
 
 const styles = {
     input: {
-        backgroundColor: TEXT_COLOR
+        backgroundColor: BACKGROUND_COLOR
     },
     errorMessage: {
         color: ERROR_MESSAGE_COLOR

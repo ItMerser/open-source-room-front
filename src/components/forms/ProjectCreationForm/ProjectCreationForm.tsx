@@ -15,7 +15,7 @@ import {createProjectSchema} from 'models/validation/schemas'
 import {IProjectCreationForm} from 'models/types/forms'
 import {useCreateProject} from 'hooks/project'
 import {useAppDispatch, useAppSelector} from 'store/config'
-import {ERROR_MESSAGE_COLOR, TEXT_COLOR} from 'const/styles'
+import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR} from 'const/styles'
 import {ProjectType} from 'models/enums/project'
 import {setUpdateProfileData} from 'store/slices/commonSlice'
 
@@ -138,7 +138,7 @@ export default ProjectCreationForm
 
 const styles = {
     input: {
-        backgroundColor: TEXT_COLOR
+        backgroundColor: BACKGROUND_COLOR
     },
     errorMessage: {
         color: ERROR_MESSAGE_COLOR

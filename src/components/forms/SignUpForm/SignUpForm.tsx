@@ -6,7 +6,7 @@ import {DIRECTIONS} from 'const/common'
 import {useCreateSpecialist} from 'hooks/specialists'
 import {ISignUpForm} from 'models/types/forms'
 import {signUpSchema} from 'models/validation/schemas'
-import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR} from 'const/styles'
+import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 import {login} from 'utils/auth'
 
 interface Props {
@@ -119,11 +119,11 @@ const styles = {
         borderRadius: '2rem',
         padding: '1rem',
         margin: '2rem',
-        backgroundColor: 'white',
-        border: `2px solid ${BACKGROUND_COLOR}`
+        backgroundColor: BACKGROUND_COLOR,
+        border: `2px solid ${TEXT_COLOR}`
     },
     input: {
-        backgroundColor: 'white'
+        backgroundColor: BACKGROUND_COLOR
     },
     errorMessage: {
         color: ERROR_MESSAGE_COLOR

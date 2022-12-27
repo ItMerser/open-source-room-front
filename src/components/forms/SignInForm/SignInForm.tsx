@@ -5,7 +5,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import {ISignInForm} from 'models/types/forms'
 import {signInSchema} from 'models/validation/schemas'
 import {useAuthenticateSpecialist} from 'hooks/specialists'
-import {BACKGROUND_COLOR, ERROR_MESSAGE_COLOR} from 'const/styles'
+import {BACKGROUND_COLOR, ERROR_MESSAGE_COLOR, TEXT_COLOR} from 'const/styles'
 import {login} from 'utils/auth'
 
 interface Props {
@@ -86,11 +86,11 @@ const styles = {
         borderRadius: '2rem',
         padding: '1rem',
         margin: '2rem',
-        backgroundColor: 'white',
-        border: `2px solid ${BACKGROUND_COLOR}`
+        backgroundColor: BACKGROUND_COLOR,
+        border: `2px solid ${TEXT_COLOR}`
     },
     input: {
-        backgroundColor: 'white'
+        backgroundColor: BACKGROUND_COLOR
     },
     errorMessage: {
         color: ERROR_MESSAGE_COLOR

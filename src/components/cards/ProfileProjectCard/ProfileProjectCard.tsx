@@ -8,7 +8,7 @@ import {useDeleteProject} from 'hooks/project'
 import {useAppSelector, useAppDispatch} from 'store/config'
 import {setUpdateProfileData} from 'store/slices/commonSlice'
 import {ISpecialistProject} from 'models/types/specialist'
-import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
+import {BACKGROUND_COLOR, TEXT_COLOR, ERROR_MESSAGE_COLOR} from 'const/styles'
 
 interface Props {
     project: ISpecialistProject
@@ -60,7 +60,7 @@ const ProfileProjectCard: FC<Props> = (props) => {
                     DETAIL
                 </Button>
                 {props.isEditable &&
-                    <Button sx={styles.button} onClick={changeConfirmDialogState}>
+                    <Button sx={styles.deleteButton} onClick={changeConfirmDialogState}>
                         DELETE
                     </Button>
                 }
@@ -106,6 +106,9 @@ const styles = {
     },
     button: {
         color: lightGreen['A400']
+    },
+    deleteButton: {
+        color: ERROR_MESSAGE_COLOR
     },
     githubIcon: {
         marginRight: '0.5rem'
