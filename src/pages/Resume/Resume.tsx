@@ -24,7 +24,7 @@ const Resume: FC = () => {
                 <SideBar items={SIDE_BAR_ITEMS}/>
             </Box>
 
-            <Box sx={styles.content}>
+            <Box sx={styles.content} id="resume">
                 {specialist && <ProfileMainInfoBlock specialist={specialist} showEmptyValues={false}/>}
 
                 {specialist?.about && <AboutBlock about={specialist.about}/>}

@@ -17,7 +17,9 @@ import {
 import {ISpecialist} from 'models/types/specialist'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import EditIcon from '@mui/icons-material/Edit'
+import DownloadIcon from '@mui/icons-material/Download'
 import UpdateSpecialistDataForm from 'components/forms/UpdateSpecialistDataForm/UpdateSpecialistDataForm'
+import {getPDFPage} from 'services/pdf'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
@@ -41,6 +43,8 @@ const ProfileMainInfoBlock: FC<Props> = (props) => {
 
     const changePatchFormState = () => setPatchForm(!patchForm)
 
+    const downloadResume = getPDFPage('resume', `${props.specialist.nickname}`)
+
     return (
         <Paper elevation={12} sx={styles.paper}>
             <Breadcrumbs separator={<Typography variant="h4" sx={styles.separator}>/</Typography>}
@@ -54,9 +58,12 @@ const ProfileMainInfoBlock: FC<Props> = (props) => {
                 </Typography>
             </Breadcrumbs>
 
-            {props.showEmptyValues &&
-                <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
+            {props.showEmptyValues
+                ? <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
                     <EditIcon/>
+                </Button>
+                : <Button sx={styles.editMainInfoButton} onClick={downloadResume}>
+                    <DownloadIcon/>
                 </Button>
             }
 
