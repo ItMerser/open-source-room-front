@@ -39,7 +39,7 @@ const styles = {
     paper: {
         background: BACKGROUND_COLOR,
         margin: '1rem',
-        padding: '0 1rem 1rem 1rem',
+        padding: '1rem',
         minHeight: '10vh'
     },
     title: {

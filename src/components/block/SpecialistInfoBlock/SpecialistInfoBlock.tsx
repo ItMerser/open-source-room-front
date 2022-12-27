@@ -37,7 +37,7 @@ const existsFields = (specialist: ISpecialist): string[] => {
     })
 }
 
-const ProfileMainInfoBlock: FC<Props> = (props) => {
+const SpecialistInfoBlock: FC<Props> = (props) => {
     const fieldsForShow = props.showEmptyValues ? additionalFields : existsFields(props.specialist)
     const [patchForm, setPatchForm] = useState<boolean>(false)
 
@@ -115,7 +115,7 @@ const ProfileMainInfoBlock: FC<Props> = (props) => {
     )
 }
 
-export default ProfileMainInfoBlock
+export default SpecialistInfoBlock
 
 const styles = {
     paper: {

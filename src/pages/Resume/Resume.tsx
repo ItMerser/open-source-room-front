@@ -1,10 +1,10 @@
 import React, {FC, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {Box} from '@mui/material'
-import ProfileMainInfoBlock from 'components/block/ProfileMainInfoBlock/ProfileMainInfoBlock'
+import SpecialistInfoBlock from 'components/block/SpecialistInfoBlock/SpecialistInfoBlock'
 import AboutBlock from 'components/block/AboutBlock/AboutBlock'
-import LanguagesBlock from 'components/block/LanguagesBlock/LanguagesBlock'
-import TechnologiesBlock from 'components/block/TechnologiesBlock/TechnologiesBlock'
+import SpecialistLanguagesBlock from 'components/block/SpecialistLanguagesBlock/SpecialistLanguagesBlock'
+import SpecialistTechnologiesBlock from 'components/block/SpecialistTechnologiesBlock/SpecialistTechnologiesBlock'
 import ProjectsBlock from 'components/block/ProjectsBlock/ProjectsBlock'
 import SideBar from 'components/common/SideBar/SideBar'
 import {SIDE_BAR_ITEMS} from 'const/components'
@@ -25,16 +25,16 @@ const Resume: FC = () => {
             </Box>
 
             <Box sx={styles.content} id="resume">
-                {specialist && <ProfileMainInfoBlock specialist={specialist} showEmptyValues={false}/>}
+                {specialist && <SpecialistInfoBlock specialist={specialist} showEmptyValues={false}/>}
 
                 {specialist?.about && <AboutBlock about={specialist.about}/>}
 
                 {specialist?.languages.length !== 0 &&
-                    <LanguagesBlock specialistLanguages={specialist?.languages || []}/>
+                    <SpecialistLanguagesBlock specialistLanguages={specialist?.languages || []}/>
                 }
 
                 {specialist?.selfProjects.length !== 0 &&
-                    <TechnologiesBlock specialistTechnologies={specialist?.technologies || []}/>
+                    <SpecialistTechnologiesBlock specialistTechnologies={specialist?.technologies || []}/>
                 }
 
                 {specialist?.projects.length !== 0 &&

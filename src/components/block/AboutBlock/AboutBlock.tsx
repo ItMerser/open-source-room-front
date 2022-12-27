@@ -20,7 +20,7 @@ export default AboutBlock
 const styles = {
     paper: {
         margin: '1rem',
-        padding: '0 1rem 1rem 1rem',
+        padding: '1rem',
         background: BACKGROUND_COLOR,
         color: TEXT_COLOR,
         minHeight: '10vh'
