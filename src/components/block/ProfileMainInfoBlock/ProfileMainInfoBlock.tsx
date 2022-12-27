@@ -1,8 +1,23 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import {Link} from 'react-router-dom'
-import {Paper, Box, Typography, Breadcrumbs, List, ListItem, ListItemText} from '@mui/material'
+import {
+    Paper,
+    Box,
+    Typography,
+    Breadcrumbs,
+    List,
+    ListItem,
+    ListItemText,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions
+} from '@mui/material'
 import {ISpecialist} from 'models/types/specialist'
 import GitHubIcon from '@mui/icons-material/GitHub'
+import EditIcon from '@mui/icons-material/Edit'
+import UpdateSpecialistDataForm from 'components/forms/UpdateSpecialistDataForm/UpdateSpecialistDataForm'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
@@ -22,6 +37,9 @@ const existsFields = (specialist: ISpecialist): string[] => {
 
 const ProfileMainInfoBlock: FC<Props> = (props) => {
     const fieldsForShow = props.showEmptyValues ? additionalFields : existsFields(props.specialist)
+    const [patchForm, setPatchForm] = useState<boolean>(false)
+
+    const changePatchFormState = () => setPatchForm(!patchForm)
 
     return (
         <Paper elevation={12} sx={styles.paper}>
@@ -35,6 +53,25 @@ const ProfileMainInfoBlock: FC<Props> = (props) => {
                     {props.specialist.githubNickname}
                 </Typography>
             </Breadcrumbs>
+
+            {props.showEmptyValues &&
+                <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
+                    <EditIcon/>
+                </Button>
+            }
+
+            {/*Form for updating specialist additional data*/}
+            <Dialog open={patchForm} onClose={changePatchFormState}>
+                <DialogTitle textAlign="center">
+                    Change the data witch you want to update
+                </DialogTitle>
+                <DialogContent>
+                    <UpdateSpecialistDataForm specialist={props.specialist} closeForm={changePatchFormState}/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={changePatchFormState}>CANCEL</Button>
+                </DialogActions>
+            </Dialog>
 
             <Box>
                 <Typography variant="h6" component="div" sx={styles.text}>{props.specialist.direction}</Typography>
@@ -78,6 +115,13 @@ const styles = {
         margin: '1rem',
         padding: '1rem',
         background: BACKGROUND_COLOR,
+        position: 'relative'
+    },
+    editMainInfoButton: {
+        position: 'absolute',
+        top: '1rem',
+        right: '1rem',
+        color: TEXT_COLOR
     },
     text: {
         textDecoration: 'none',

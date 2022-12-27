@@ -8,7 +8,8 @@ import {
     IListSpecialistsState,
     IRetrieveSpecialistState,
     ICreateSpecialistState,
-    IAuthenticateSpecialistState
+    IAuthenticateSpecialistState,
+    IUpdateSpecialistState
 } from 'models/types/states'
 
 export const useListSpecialists = () => {
@@ -74,4 +75,23 @@ export const useAuthenticateSpecialist = () => {
     }
 
     return {status, data, error, loading, authenticate}
+}
+
+export const useUpdateSpecialist = () => {
+  const [
+    {status, data, error, loading},
+    setState
+  ] = useState<IUpdateSpecialistState>(DEFAULT_INITIAL_STATE)
+
+  const update = (data: any, token: string) => {
+    const config: AxiosRequestConfig = {
+      url: BASE_API_URL + API.UPDATE_SPECIALIST,
+      method: Method.PATCH,
+      headers: {Authorization: `Token ${token}`},
+      data: data
+    }
+    request(config, setState)
+  }
+
+  return {status, data, error, loading, update}
 }

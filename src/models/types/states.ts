@@ -25,6 +25,10 @@ export interface IAuthenticateSpecialistState extends State {
     data: ISpecialistWithToken | null
 }
 
+export interface IUpdateSpecialistState extends State {
+    data: null
+}
+
 // Project States
 export interface IListProjectsState extends State {
     data: IProject[] | null

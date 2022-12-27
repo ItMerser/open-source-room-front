@@ -17,6 +17,7 @@ export enum API {
     RETRIEVE_SPECIALIST = '/specialists/:specialistId',
     CREATE_SPECIALIST = '/specialists/creation',
     AUTHENTICATE_SPECIALIST = '/specialists/authentication',
+    UPDATE_SPECIALIST = '/specialists/updating',
 
     PROJECTS = '/projects'
 }

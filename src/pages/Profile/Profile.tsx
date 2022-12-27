@@ -9,14 +9,17 @@ import ProjectsBlock from 'components/block/ProjectsBlock/ProjectsBlock'
 import SideBar from 'components/common/SideBar/SideBar'
 import {SIDE_BAR_ITEMS} from 'const/components'
 import {useRetrieveSpecialist} from 'hooks/specialists'
+import {useAppSelector} from 'store/config'
 
 const Profile: FC = () => {
     const {specialistId} = useParams()
     const {data: specialist, getSpecialist} = useRetrieveSpecialist()
 
+    const {updateProfileData} = useAppSelector(state => state.commonReducer)
+
     useEffect(() => {
         getSpecialist(Number(specialistId))
-    }, [])
+    }, [updateProfileData])
 
     return (
         <Box sx={styles.main}>

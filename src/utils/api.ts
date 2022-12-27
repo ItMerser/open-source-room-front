@@ -10,11 +10,13 @@ export const request = (config: AxiosRequestConfig, setState: Dispatch<any>) => 
     setState((prev: any) => ({...prev, loading: LOADING_STATE.LOADING}))
     axios.request(config)
         .then(response => setState(() => ({
+            status: response.status,
             data: response.data,
             error: null,
             loading: LOADING_STATE.LOADED
         })))
         .catch((error: AxiosError) => setState(() => ({
+            status: error.status,
             data: null,
             error: error.response?.data,
             loading: LOADING_STATE.LOADED

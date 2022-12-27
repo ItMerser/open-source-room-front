@@ -2,7 +2,7 @@ import React, {FC, Dispatch, useEffect} from 'react'
 import {Box, Button, FormControl, FormHelperText, MenuItem, TextField} from '@mui/material'
 import {useForm} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
-import {Direction} from 'models/enums/specialist'
+import {DIRECTIONS} from 'const/common'
 import {useCreateSpecialist} from 'hooks/specialists'
 import {ISignUpForm} from 'models/types/forms'
 import {signUpSchema} from 'models/validation/schemas'
@@ -12,8 +12,6 @@ import {login} from 'utils/auth'
 interface Props {
     setAuthState: Dispatch<boolean>
 }
-
-const directions = Object.values(Direction)
 
 const SignUpForm: FC<Props> = (props) => {
     const {data: createdSpecialist, error, registrate} = useCreateSpecialist()
@@ -26,7 +24,7 @@ const SignUpForm: FC<Props> = (props) => {
         setError,
     } = useForm({mode: 'onBlur', resolver: yupResolver(signUpSchema)})
 
-    const direction = watch<string>('direction', Direction.BACKEND)
+    const direction = watch<string>('direction', DIRECTIONS[0])
 
     const submit = (formData: ISignUpForm) => {
         registrate(formData)
@@ -95,7 +93,7 @@ const SignUpForm: FC<Props> = (props) => {
                     sx={styles.input}
                     {...register('direction')}
                 >
-                    {directions.map((value, pk) => {
+                    {DIRECTIONS.map((value, pk) => {
                         return (
                             <MenuItem value={value} key={pk}>{value}</MenuItem>
                         )
