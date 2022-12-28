@@ -33,7 +33,7 @@ const Resume: FC = () => {
                     <SpecialistLanguagesBlock specialistLanguages={specialist?.languages || []}/>
                 }
 
-                {specialist?.selfProjects.length !== 0 &&
+                {specialist?.ownProjects.length !== 0 &&
                     <SpecialistTechnologiesBlock specialistTechnologies={specialist?.technologies || []}/>
                 }
 
@@ -41,8 +41,8 @@ const Resume: FC = () => {
                     <ProjectsBlock title="PROJECTS" projects={specialist?.projects || []}/>
                 }
 
-                {specialist?.selfProjects.length !== 0 &&
-                    <ProjectsBlock title="SELF PROJECTS" projects={specialist?.selfProjects || []}/>
+                {specialist?.ownProjects.length !== 0 &&
+                    <ProjectsBlock title="OWN PROJECTS" projects={specialist?.ownProjects || []}/>
                 }
             </Box>
         </Box>

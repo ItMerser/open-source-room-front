@@ -18,7 +18,7 @@ export interface ISpecialist {
     technologies: string[]
     currentProject: ISpecialistProject
     projects: ISpecialistProject[]
-    selfProjects: ISpecialistProject[]
+    ownProjects: ISpecialistProject[]
     email: string
     github: string
     name: string
