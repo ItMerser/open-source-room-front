@@ -15,10 +15,11 @@ import Logout from '@mui/icons-material/Logout'
 import {logout} from 'utils/auth'
 import {PAGE} from 'routing'
 import {useAppSelector} from 'store/config'
+import {ISpecialist, ISpecialistWithToken} from 'models/types/specialist'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 const NavBar: FC = () => {
-    const {isAuthenticated, specialistId, nickname} = useAppSelector(state => state.specialistReducer)
+    const {specialist} = useAppSelector(state => state.specialistReducer)
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
@@ -30,7 +31,8 @@ const NavBar: FC = () => {
         <AppBar position="static" sx={styles.appBar}>
             <Toolbar sx={styles.toolBar}>
                 <Button component={Link} to={PAGE.HOME} sx={styles.button}>APP</Button>
-                {isAuthenticated
+
+                {specialist
                     ? <Tooltip title="menu">
                         <Button
                             sx={styles.button}
@@ -40,10 +42,12 @@ const NavBar: FC = () => {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >
-                            {nickname}
+                            {specialist['nickname']}
                         </Button>
-                      </Tooltip>
-                    : <Button component={Link} to={PAGE.AUTHENTICATION} sx={styles.button}>SIGN IN</Button>
+                    </Tooltip>
+                    : <Button component={Link} to={PAGE.AUTHENTICATION} sx={styles.button}>
+                        SIGN IN
+                    </Button>
                 }
             </Toolbar>
 
@@ -82,10 +86,10 @@ const NavBar: FC = () => {
                 transformOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
-                {specialistId &&
+                {specialist &&
                     <MenuItem
                         component={Link}
-                        to={PAGE.PROFILE.replace(':specialistId', specialistId)}
+                        to={PAGE.PROFILE.replace(':specialistId', specialist['id'])}
                     >
                         <Avatar/>
                         Profile

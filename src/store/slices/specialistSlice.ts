@@ -1,16 +1,13 @@
 import {createSlice, Draft, PayloadAction} from '@reduxjs/toolkit'
+import {ISpecialist, ISpecialistWithToken} from 'models/types/specialist'
 
 interface IInitialState {
-    isAuthenticated: boolean
-    specialistId: number | null
-    nickname: string | null
+    specialist: ISpecialist | ISpecialistWithToken | null
     token: string | null
 }
 
 const initialState = {
-    isAuthenticated: false,
-    specialistId: null,
-    nickname: null,
+    specialist: null,
     token: null
 }
 
@@ -18,14 +15,11 @@ const specialistSlice = createSlice({
     name: 'specialist',
     initialState,
     reducers: {
-        setAuthentication: (state: Draft<IInitialState>, payload: PayloadAction<boolean>) => {
-            state.isAuthenticated = payload.payload
-        },
-        setSpecialistId: (state: Draft<IInitialState>, payload: PayloadAction<number | null>) => {
-            state.specialistId = payload.payload
-        },
-        setNickname: (state: Draft<IInitialState>, payload: PayloadAction<string | null>) => {
-            state.nickname = payload.payload
+        setSpecialistData: (
+            state: Draft<IInitialState>,
+            payload: PayloadAction<ISpecialist | ISpecialistWithToken | null>
+        ) => {
+            state.specialist = payload.payload
         },
         setToken: (state: Draft<IInitialState>, payload: PayloadAction<string | null>) => {
             state.token = payload.payload
@@ -34,9 +28,7 @@ const specialistSlice = createSlice({
 })
 
 export const {
-    setAuthentication,
-    setSpecialistId,
+    setSpecialistData,
     setToken,
-    setNickname
 } = specialistSlice.actions
 export default specialistSlice.reducer
