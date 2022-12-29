@@ -40,7 +40,7 @@ const SignUpForm: FC<Props> = (props) => {
 
     useEffect(() => {
         if (createdSpecialist) {
-            login(createdSpecialist, createdSpecialist.token)
+            login(createdSpecialist)
             props.setAuthState(true)
         }
     }, [createdSpecialist])

@@ -15,11 +15,10 @@ import Logout from '@mui/icons-material/Logout'
 import {logout} from 'utils/auth'
 import {PAGE} from 'routing'
 import {useAppSelector} from 'store/config'
-import {ISpecialist, ISpecialistWithToken} from 'models/types/specialist'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 const NavBar: FC = () => {
-    const {specialist} = useAppSelector(state => state.specialistReducer)
+    const {id, nickname} = useAppSelector(state => state.specialistReducer)
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const open = Boolean(anchorEl)
@@ -32,7 +31,7 @@ const NavBar: FC = () => {
             <Toolbar sx={styles.toolBar}>
                 <Button component={Link} to={PAGE.HOME} sx={styles.button}>APP</Button>
 
-                {specialist
+                {nickname
                     ? <Tooltip title="menu">
                         <Button
                             sx={styles.button}
@@ -42,7 +41,7 @@ const NavBar: FC = () => {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >
-                            {specialist['nickname']}
+                            {nickname}
                         </Button>
                     </Tooltip>
                     : <Button component={Link} to={PAGE.AUTHENTICATION} sx={styles.button}>
@@ -86,10 +85,10 @@ const NavBar: FC = () => {
                 transformOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
-                {specialist &&
+                {id &&
                     <MenuItem
                         component={Link}
-                        to={PAGE.PROFILE.replace(':specialistId', specialist['id'])}
+                        to={PAGE.PROFILE.replace(':specialistId', id)}
                     >
                         <Avatar/>
                         Profile

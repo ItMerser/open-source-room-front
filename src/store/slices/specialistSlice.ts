@@ -1,13 +1,17 @@
 import {createSlice, Draft, PayloadAction} from '@reduxjs/toolkit'
-import {ISpecialist, ISpecialistWithToken} from 'models/types/specialist'
+import {ISpecialistProject} from 'models/types/specialist'
 
 interface IInitialState {
-    specialist: ISpecialist | ISpecialistWithToken | null
+    id: number | null
+    nickname: string | null
+    ownProjects: ISpecialistProject[] | null
     token: string | null
 }
 
 const initialState = {
-    specialist: null,
+    id: null,
+    nickname: null,
+    ownProjects: null,
     token: null
 }
 
@@ -15,20 +19,31 @@ const specialistSlice = createSlice({
     name: 'specialist',
     initialState,
     reducers: {
-        setSpecialistData: (
+        setTSpecialistId: (state: Draft<IInitialState>, payload: PayloadAction<number | null>) => {
+            state.id = payload.payload
+        },
+        setTSpecialistNickname: (
             state: Draft<IInitialState>,
-            payload: PayloadAction<ISpecialist | ISpecialistWithToken | null>
+            payload: PayloadAction<string | null>
         ) => {
-            state.specialist = payload.payload
+            state.nickname = payload.payload
+        },
+        setTOwnProjects: (
+            state: Draft<IInitialState>,
+            payload: PayloadAction<ISpecialistProject[] | null>
+        ) => {
+            state.ownProjects = payload.payload
         },
         setToken: (state: Draft<IInitialState>, payload: PayloadAction<string | null>) => {
             state.token = payload.payload
-        },
+        }
     }
 })
 
 export const {
-    setSpecialistData,
-    setToken,
+    setTSpecialistId,
+    setTSpecialistNickname,
+    setTOwnProjects,
+    setToken
 } = specialistSlice.actions
 export default specialistSlice.reducer
