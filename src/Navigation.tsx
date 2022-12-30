@@ -2,12 +2,15 @@ import React, {FC} from 'react'
 import {Route, Routes} from 'react-router-dom'
 import AuthPrivateRoute from 'components/routes/AuthPrivateRoute/AuthPrivateRoute'
 import OwnerPrivateRoute from 'components/routes/OwnerPrivateRoute/OwnerPrivateRoute'
+import ProjectOwnerPrivateRoute
+    from 'components/routes/ProjectOwnerPrivateRoute/ProjectOwnerPrivateRoute'
 import Home from 'pages/Home/Home'
 import Specialists from 'pages/Specialists/Specialists'
 import Projects from 'pages/Projects/Projects'
 import Authentication from 'pages/Authentication/Authentication'
 import Profile from 'pages/Profile/Profile'
 import Resume from 'pages/Resume/Resume'
+import ProjectConfiguration from 'pages/ProjectConfiguration/ProjectConfiguration'
 import {PAGE} from 'routing'
 
 const Navigation: FC = () => {
@@ -27,6 +30,10 @@ const Navigation: FC = () => {
 
                 <Route element={<OwnerPrivateRoute/>}>
                     <Route path={PAGE.PROFILE} element={<Profile/>}/>
+                </Route>
+
+                <Route element={<ProjectOwnerPrivateRoute/>}>
+                    <Route path={PAGE.PROJECT_CONFIGURATION} element={<ProjectConfiguration/>}/>
                 </Route>
             </Route>
         </Routes>

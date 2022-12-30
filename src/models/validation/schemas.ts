@@ -30,3 +30,11 @@ export const createProjectSchema = yup.object({
     type: yup.string().required('Field type is required'),
     github: yup.string().url()
 })
+
+export const updateProjectSchema = yup.object({
+    name: yup.string(),
+    githubName: yup.string(),
+    type: yup.string(),
+    version: yup.string(),
+    github: yup.string()
+})

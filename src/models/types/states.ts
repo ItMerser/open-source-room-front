@@ -50,6 +50,14 @@ export interface IListProjectsState extends State {
     data: IProject[] | null
 }
 
+export interface IRetrieveProjectState extends State {
+    data: IProject | null
+}
+
+export interface IUpdateProjectsState extends State {
+    data: null
+}
+
 export interface ICreateProjectsState extends State {
     data: IProject | null
 }

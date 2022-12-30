@@ -8,6 +8,7 @@ import {useDeleteProject} from 'hooks/project'
 import {useAppSelector, useAppDispatch} from 'store/config'
 import {setUpdateProfileData} from 'store/slices/commonSlice'
 import {ISpecialistProject} from 'models/types/specialist'
+import {PAGE} from 'routing'
 import {BACKGROUND_COLOR, TEXT_COLOR, ERROR_MESSAGE_COLOR} from 'const/styles'
 
 interface Props {
@@ -50,21 +51,52 @@ const ProfileProjectCard: FC<Props> = (props) => {
 
             <Divider sx={styles.divider}/>
 
-            <Box sx={styles.cardActions}>
-                <Button
-                    component={Link}
-                    to=""
-                    size="small"
-                    sx={styles.button}
-                >
-                    DETAIL
-                </Button>
-                {props.isEditable &&
-                    <Button sx={styles.deleteButton} onClick={changeConfirmDialogState}>
-                        DELETE
-                    </Button>
-                }
-            </Box>
+            {
+                props.isEditable
+                    ? <Box sx={styles.cardActions}>
+                        <Button
+                            component={Link}
+                            to={PAGE.PROJECT_CONFIGURATION.replace(
+                                ':projectId',
+                                props.project.id.toString()
+                            )}
+                            size="small"
+                            sx={styles.button}
+                        >
+                            CONFIGURATION
+                        </Button>
+                        <Button sx={styles.deleteButton} onClick={changeConfirmDialogState}>
+                            DELETE
+                        </Button>
+
+                    </Box>
+                    : <Box sx={styles.cardActions}>
+                        <Button
+                            component={Link}
+                            to=""
+                            size="small"
+                            sx={styles.button}
+                        >
+                            DETAIL
+                        </Button>
+                    </Box>
+            }
+
+            {/*<Box sx={styles.cardActions}>*/}
+            {/*    <Button*/}
+            {/*        component={Link}*/}
+            {/*        to=""*/}
+            {/*        size="small"*/}
+            {/*        sx={styles.button}*/}
+            {/*    >*/}
+            {/*        DETAIL*/}
+            {/*    </Button>*/}
+            {/*    {props.isEditable &&*/}
+            {/*        <Button sx={styles.deleteButton} onClick={changeConfirmDialogState}>*/}
+            {/*            DELETE*/}
+            {/*        </Button>*/}
+            {/*    }*/}
+            {/*</Box>*/}
 
             <ConfirmDialog
                 isOpen={isOpenConfirmDialog}

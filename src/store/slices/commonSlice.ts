@@ -6,13 +6,15 @@ interface IInitialState {
     languages: string[] | null
     technologies: ITechnology[] | null
     updateProfileData: boolean
+    updateConfigurationData: boolean
 }
 
 const initialState: IInitialState = {
     isOpenSideBar: false,
     languages: null,
     technologies: null,
-    updateProfileData: false
+    updateProfileData: false,
+    updateConfigurationData: false
 }
 
 const commonSlice = createSlice({
@@ -30,9 +32,18 @@ const commonSlice = createSlice({
         },
         setUpdateProfileData: (state: Draft<IInitialState>) => {
             state.updateProfileData = !state.updateProfileData
+        },
+        setUpdateConfigurationData: (state: Draft<IInitialState>) => {
+            state.updateConfigurationData = !state.updateConfigurationData
         }
     }
 })
 
-export const {setSideBarState, setLanguages, setTechnologies, setUpdateProfileData} = commonSlice.actions
+export const {
+    setSideBarState,
+    setLanguages,
+    setTechnologies,
+    setUpdateProfileData,
+    setUpdateConfigurationData
+} = commonSlice.actions
 export default commonSlice.reducer

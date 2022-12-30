@@ -35,7 +35,9 @@ const LanguagesCheckBoxGroup: FC<Props> = (props) => {
         if (e.target.checked) {
             patchData.languages.push(e.target.value)
         } else {
-            patchData.languages = patchData.languages.filter((language) => language !== e.target.value)
+            patchData.languages = patchData.languages.filter(
+                (language) => language !== e.target.value
+            )
         }
     }
 

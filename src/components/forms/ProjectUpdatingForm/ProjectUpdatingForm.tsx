@@ -1,34 +1,24 @@
-import React, {FC, useEffect, useState, ChangeEvent} from 'react'
-import {
-    Box,
-    Button,
-    FormControl,
-    FormHelperText,
-    MenuItem,
-    TextField,
-    FormControlLabel,
-    Switch
-} from '@mui/material'
+import React, {FC, useEffect} from 'react'
+import {Box, Button, FormControl, FormHelperText, MenuItem, TextField} from '@mui/material'
 import {useForm} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
-import {createProjectSchema} from 'models/validation/schemas'
-import {IProjectCreationForm} from 'models/types/forms'
-import {useCreateProject} from 'hooks/project'
+import {updateProjectSchema} from 'models/validation/schemas'
+import {IProjectUpdatingForm} from 'models/types/forms'
+import {useUpdateProject} from 'hooks/project'
 import {useAppDispatch, useAppSelector} from 'store/config'
+import {setUpdateConfigurationData} from 'store/slices/commonSlice'
+import {IProject} from 'models/types/project'
 import {PROJECT_TYPES} from 'const/common'
-import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR} from 'const/styles'
-import {setUpdateProfileData} from 'store/slices/commonSlice'
+import {BACKGROUND_COLOR, ERROR_MESSAGE_COLOR} from 'const/styles'
 
 interface Props {
+    project: IProject
     closeForm: () => void
 }
 
-const ProjectCreationForm: FC<Props> = (props) => {
-    const {status, error, create} = useCreateProject()
+const ProjectUpdatingForm: FC<Props> = (props) => {
+    const {status, error, update} = useUpdateProject()
     const {token} = useAppSelector(state => state.specialistReducer)
-    const [isPrivate, setIsPrivate] = useState<boolean>(false)
-
-    const switchPrivate = (e: ChangeEvent<HTMLInputElement>) => setIsPrivate(e.target.checked)
 
     const dispatch = useAppDispatch()
 
@@ -38,19 +28,22 @@ const ProjectCreationForm: FC<Props> = (props) => {
         handleSubmit,
         setError,
         watch
-    } = useForm({mode: 'onBlur', resolver: yupResolver(createProjectSchema)})
+    } = useForm({mode: 'onBlur', resolver: yupResolver(updateProjectSchema)})
 
-    const projectType = watch<string>('type', PROJECT_TYPES[0])
+    const name = watch<string>('name', props.project.name)
+    const githubName = watch<string>('githubName', props.project.githubName)
+    const type = watch<string>('type', props.project.type)
+    const version = watch<string>('version', props.project.version)
+    const github = watch<string>('github', props.project.github)
 
-    const submit = (formData: IProjectCreationForm) => {
-        formData.isPrivate = isPrivate
-        create(formData, token || '')
+    const submit = (formData: IProjectUpdatingForm) => {
+        update(formData, props.project.id, token || '')
     }
 
     useEffect(() => {
-        if (status === 201) {
+        if (status === 200) {
             props.closeForm()
-            dispatch(setUpdateProfileData())
+            dispatch(setUpdateConfigurationData())
         }
     }, [status])
 
@@ -68,6 +61,7 @@ const ProjectCreationForm: FC<Props> = (props) => {
                 <TextField
                     label="Name"
                     margin="normal"
+                    value={name}
                     sx={styles.input}
                     {...register('name')}
                 />
@@ -80,6 +74,7 @@ const ProjectCreationForm: FC<Props> = (props) => {
                 <TextField
                     label="Github name"
                     margin="normal"
+                    value={githubName}
                     sx={styles.input}
                     {...register('githubName')}
                 />
@@ -88,17 +83,12 @@ const ProjectCreationForm: FC<Props> = (props) => {
                 </FormHelperText>
             </FormControl>
 
-            <FormControlLabel
-                control={<Switch checked={isPrivate} onChange={switchPrivate}/>}
-                label="IS PRIVATE"
-            />
-
             <FormControl variant="filled" fullWidth>
                 <TextField
                     select
                     label="Project type"
                     margin="normal"
-                    value={projectType}
+                    value={type}
                     sx={styles.input}
                     {...register('type')}
                 >
@@ -115,8 +105,22 @@ const ProjectCreationForm: FC<Props> = (props) => {
 
             <FormControl variant="outlined" fullWidth>
                 <TextField
+                    label="Version"
+                    margin="normal"
+                    value={version}
+                    sx={styles.input}
+                    {...register('version')}
+                />
+                <FormHelperText sx={styles.errorMessage}>
+                    {errors.version ? `${errors.version.message}` : ''}
+                </FormHelperText>
+            </FormControl>
+
+            <FormControl variant="outlined" fullWidth>
+                <TextField
                     label="Github"
                     margin="normal"
+                    value={github}
                     sx={styles.input}
                     {...register('github')}
                 />
@@ -126,13 +130,13 @@ const ProjectCreationForm: FC<Props> = (props) => {
             </FormControl>
 
             <Box sx={styles.submitButton}>
-                <Button type="submit">CREATE</Button>
+                <Button type="submit">UPDATE</Button>
             </Box>
         </form>
     )
 }
 
-export default ProjectCreationForm
+export default ProjectUpdatingForm
 
 const styles = {
     input: {

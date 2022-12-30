@@ -7,6 +7,7 @@ export enum PAGE {
     RESUME = '/specialists/:specialistId/resume',
 
     PROJECTS = '/projects',
+    PROJECT_CONFIGURATION = '/projects/:projectId/configuration'
 }
 
 export enum API {
@@ -24,6 +25,8 @@ export enum API {
     REMOVE_SPECIALIST_TECHNOLOGIES = '/specialists/technologies/deletion',
 
     PROJECTS = '/projects',
+    RETRIEVE_PROJECT = '/projects/:projectId',
     CREATE_PROJECT = '/projects/creation',
+    UPDATE_PROJECT = '/projects/:projectId/updating',
     DELETE_PROJECT = '/projects/:projectId/deletion'
 }

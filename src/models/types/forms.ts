@@ -30,3 +30,11 @@ export interface IProjectCreationForm {
     type?: ProjectType
     github?: string
 }
+
+export interface IProjectUpdatingForm {
+    name?: string
+    githubName?: string
+    type?: ProjectType
+    version?: string
+    github?: string
+}

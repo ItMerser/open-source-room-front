@@ -2,68 +2,56 @@ import React, {FC, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {
     Paper,
-    Box,
-    Typography,
     Breadcrumbs,
+    Typography,
+    Box,
     List,
     ListItem,
-    ListItemText,
-    Button,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions
+    ListItemText, Button, Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material'
-import {ISpecialist} from 'models/types/specialist'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import EditIcon from '@mui/icons-material/Edit'
-import DownloadIcon from '@mui/icons-material/Download'
-import SpecialistUpdatingForm from 'components/forms/SpecialistUpdatingForm/SpecialistUpdatingForm'
-import {getPDFPage} from 'services/pdf'
+import {IProject} from 'models/types/project'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
+import ProjectUpdatingForm from 'components/forms/ProjectUpdatingForm/ProjectUpdatingForm'
 
 interface Props {
-    specialist: ISpecialist
+    project: IProject
     showEmptyValues: boolean
 }
 
-const additionalFields = ['name', 'surname', 'age', 'email', 'country', 'city', 'github']
+const additionalFields = ['github']
 
-const existsFields = (specialist: ISpecialist): string[] => {
+const existsFields = (project: IProject): string[] => {
     return additionalFields.filter((field) => {
-        if (specialist[field as keyof ISpecialist]) {
+        if (project[field as keyof IProject]) {
             return field
         }
     })
 }
 
-const SpecialistInfoBlock: FC<Props> = (props) => {
-    const fieldsForShow = props.showEmptyValues ? additionalFields : existsFields(props.specialist)
+const ProjectInfoBlock: FC<Props> = (props) => {
+    const fieldsForShow = props.showEmptyValues ? additionalFields : existsFields(props.project)
     const [patchForm, setPatchForm] = useState<boolean>(false)
 
     const changePatchFormState = () => setPatchForm(!patchForm)
-
-    const downloadResume = getPDFPage('resume', `${props.specialist.nickname}`)
 
     return (
         <Paper elevation={12} sx={styles.paper}>
             <Breadcrumbs separator={<Typography variant="h4" sx={styles.separator}>/</Typography>}
                          sx={styles.breadcrumbs}>
                 <Typography component={Link} to="" variant="h4" sx={styles.text}>
-                    {props.specialist.nickname}
+                    {props.project.name}
                 </Typography>
                 <Typography component={Link} to="" variant="h4" sx={styles.text}>
                     <GitHubIcon sx={styles.githubIcon}/>
-                    {props.specialist.githubNickname}
+                    {props.project.githubName}
                 </Typography>
             </Breadcrumbs>
 
-            {props.showEmptyValues
-                ? <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
+            {props.showEmptyValues &&
+                <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
                     <EditIcon/>
-                </Button>
-                : <Button sx={styles.editMainInfoButton} onClick={downloadResume}>
-                    <DownloadIcon/>
                 </Button>
             }
 
@@ -72,8 +60,8 @@ const SpecialistInfoBlock: FC<Props> = (props) => {
                     Change the data witch you want to update
                 </DialogTitle>
                 <DialogContent>
-                    <SpecialistUpdatingForm
-                        specialist={props.specialist}
+                    <ProjectUpdatingForm
+                        project={props.project}
                         closeForm={changePatchFormState}
                     />
                 </DialogContent>
@@ -88,14 +76,28 @@ const SpecialistInfoBlock: FC<Props> = (props) => {
                     component="div"
                     sx={styles.text}
                 >
-                    {props.specialist.direction}
+                    {props.project.type}
                 </Typography>
                 <Typography
                     variant="h6"
                     component="div"
                     sx={styles.text}
                 >
-                    RATING {props.specialist.rating}
+                    RATING {props.project.rating}
+                </Typography>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={styles.text}
+                >
+                    VERSION {props.project.version}
+                </Typography>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={styles.text}
+                >
+                    START DATE: {props.project.startDate.toString()}
                 </Typography>
             </Box>
 
@@ -110,7 +112,7 @@ const SpecialistInfoBlock: FC<Props> = (props) => {
 
                     <List>
                         {fieldsForShow.map((field, pk) => {
-                            const value = props.specialist[field as keyof ISpecialist]
+                            const value = props.project[field as keyof IProject]
                             return (
                                 <ListItem key={pk} disablePadding>
                                     <ListItemText sx={styles.listItemText}>
@@ -129,7 +131,7 @@ const SpecialistInfoBlock: FC<Props> = (props) => {
     )
 }
 
-export default SpecialistInfoBlock
+export default ProjectInfoBlock
 
 const styles = {
     paper: {

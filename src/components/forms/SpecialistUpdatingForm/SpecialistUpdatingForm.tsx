@@ -23,7 +23,7 @@ interface Props {
 const currentYear = new Date().getFullYear()
 const minBornDate = `${currentYear - 8}-01-01`
 
-const UpdateSpecialistDataForm: FC<Props> = (props) => {
+const SpecialistUpdatingForm: FC<Props> = (props) => {
     const {status, error, update} = useUpdateSpecialist()
     const {token} = useAppSelector(state => state.specialistReducer)
     const [newBornDate, setNewBornDate] = useState<Dayjs | null>(null)
@@ -222,7 +222,7 @@ const UpdateSpecialistDataForm: FC<Props> = (props) => {
     )
 }
 
-export default UpdateSpecialistDataForm
+export default SpecialistUpdatingForm
 
 const styles = {
     input: {

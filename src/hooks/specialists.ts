@@ -17,7 +17,12 @@ import {
 } from 'models/types/states'
 
 export const useListSpecialists = () => {
-    const [{status, data, error, loading}, setState] = useState<IListSpecialistsState>(DEFAULT_INITIAL_STATE)
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<IListSpecialistsState>(DEFAULT_INITIAL_STATE)
 
     const getSpecialists = (searchParams = {}) => {
         const config: AxiosRequestConfig = {
@@ -39,7 +44,10 @@ export const useRetrieveSpecialist = () => {
 
     const getSpecialist = (specialistId: number) => {
         const config: AxiosRequestConfig = {
-            url: BASE_API_URL + API.RETRIEVE_SPECIALIST.replace(':specialistId', specialistId.toString()),
+            url: BASE_API_URL + API.RETRIEVE_SPECIALIST.replace(
+                ':specialistId',
+                specialistId.toString()
+            ),
             method: Method.GET
         }
         request(config, setState)
@@ -49,7 +57,12 @@ export const useRetrieveSpecialist = () => {
 }
 
 export const useCreateSpecialist = () => {
-    const [{status, data, error, loading}, setState] = useState<ICreateSpecialistState>(DEFAULT_INITIAL_STATE)
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<ICreateSpecialistState>(DEFAULT_INITIAL_STATE)
 
     const registrate = (data: unknown) => {
         const config: AxiosRequestConfig = {
