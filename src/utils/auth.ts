@@ -1,7 +1,7 @@
 import {
-    setTSpecialistId,
-    setTSpecialistNickname,
-    setTOwnProjects,
+    setSpecialistId,
+    setSpecialistNickname,
+    setOwnProjects,
     setToken
 } from 'store/slices/specialistSlice'
 import {COOKIES} from 'services/cookie'
@@ -12,9 +12,9 @@ export const login = (
     specialist: ISpecialist | ISpecialistWithToken,
     token: string | null = null
 ) => {
-    store.dispatch(setTSpecialistId(specialist.id))
-    store.dispatch(setTSpecialistNickname(specialist.nickname))
-    store.dispatch(setTOwnProjects(specialist.ownProjects))
+    store.dispatch(setSpecialistId(specialist.id))
+    store.dispatch(setSpecialistNickname(specialist.nickname))
+    store.dispatch(setOwnProjects(specialist.ownProjects))
     if ('token' in specialist) {
         store.dispatch(setToken(specialist.token))
         COOKIES.set('token', specialist.token)
@@ -23,15 +23,15 @@ export const login = (
         COOKIES.set('token', token)
     }
 
-    COOKIES.set('specialist', specialist)
+    COOKIES.set('specialistId', specialist.id)
 }
 
 export const logout = () => {
-    store.dispatch(setTSpecialistId(null))
-    store.dispatch(setTSpecialistNickname(null))
-    store.dispatch(setTOwnProjects(null))
+    store.dispatch(setSpecialistId(null))
+    store.dispatch(setSpecialistNickname(null))
+    store.dispatch(setOwnProjects(null))
     store.dispatch(setToken(null))
 
-    COOKIES.remove('specialist')
+    COOKIES.remove('specialistId')
     COOKIES.remove('token')
 }

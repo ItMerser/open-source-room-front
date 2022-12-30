@@ -19,20 +19,30 @@ const specialistSlice = createSlice({
     name: 'specialist',
     initialState,
     reducers: {
-        setTSpecialistId: (state: Draft<IInitialState>, payload: PayloadAction<number | null>) => {
+        setSpecialistId: (state: Draft<IInitialState>, payload: PayloadAction<number | null>) => {
             state.id = payload.payload
         },
-        setTSpecialistNickname: (
+        setSpecialistNickname: (
             state: Draft<IInitialState>,
             payload: PayloadAction<string | null>
         ) => {
             state.nickname = payload.payload
         },
-        setTOwnProjects: (
+        setOwnProjects: (
             state: Draft<IInitialState>,
             payload: PayloadAction<ISpecialistProject[] | null>
         ) => {
             state.ownProjects = payload.payload
+        },
+        addOwnProject: (
+            state: Draft<IInitialState>,
+            payload: PayloadAction<ISpecialistProject>
+        ) => {
+            if (state.ownProjects) {
+                state.ownProjects.push(payload.payload)
+            } else {
+                state.ownProjects = [payload.payload]
+            }
         },
         setToken: (state: Draft<IInitialState>, payload: PayloadAction<string | null>) => {
             state.token = payload.payload
@@ -41,9 +51,10 @@ const specialistSlice = createSlice({
 })
 
 export const {
-    setTSpecialistId,
-    setTSpecialistNickname,
-    setTOwnProjects,
+    setSpecialistId,
+    setSpecialistNickname,
+    setOwnProjects,
+    addOwnProject,
     setToken
 } = specialistSlice.actions
 export default specialistSlice.reducer

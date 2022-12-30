@@ -15,16 +15,24 @@ import {createProjectSchema} from 'models/validation/schemas'
 import {IProjectCreationForm} from 'models/types/forms'
 import {useCreateProject} from 'hooks/project'
 import {useAppDispatch, useAppSelector} from 'store/config'
-import {PROJECT_TYPES} from 'const/common'
-import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR} from 'const/styles'
 import {setUpdateProfileData} from 'store/slices/commonSlice'
+import {addOwnProject} from 'store/slices/specialistSlice'
+import {PROJECT_TYPES} from 'const/common'
+import {ISpecialistProject} from 'models/types/specialist'
+import {IProject} from 'models/types/project'
+import {ERROR_MESSAGE_COLOR, BACKGROUND_COLOR} from 'const/styles'
 
 interface Props {
     closeForm: () => void
 }
 
+const sprintOwnProject = (project: IProject): ISpecialistProject => {
+    const {id, name, githubName, type, version, rating, github}: ISpecialistProject = project
+    return {id, name, githubName, type, version, rating, github}
+}
+
 const ProjectCreationForm: FC<Props> = (props) => {
-    const {status, error, create} = useCreateProject()
+    const {data, status, error, create} = useCreateProject()
     const {token} = useAppSelector(state => state.specialistReducer)
     const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
@@ -48,11 +56,12 @@ const ProjectCreationForm: FC<Props> = (props) => {
     }
 
     useEffect(() => {
-        if (status === 201) {
+        if (data) {
             props.closeForm()
+            dispatch(addOwnProject(sprintOwnProject(data)))
             dispatch(setUpdateProfileData())
         }
-    }, [status])
+    }, [data])
 
     useEffect(() => {
         if (error) {

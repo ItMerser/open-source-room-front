@@ -9,12 +9,12 @@ import {loadLanguages, loadTechnologies} from 'utils/api'
 import 'App.css'
 
 const App: FC = () => {
-    const specialist = COOKIES.get('specialist')
+    const specialistId = COOKIES.get('specialistId')
     const {data, getSpecialist} = useRetrieveSpecialist()
 
     useEffect(() => {
-        if (specialist) {
-            getSpecialist(Number(specialist.id))
+        if (specialistId) {
+            getSpecialist(Number(specialistId))
         }
         loadLanguages()
         loadTechnologies()
