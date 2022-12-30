@@ -11,6 +11,7 @@ import Authentication from 'pages/Authentication/Authentication'
 import Profile from 'pages/Profile/Profile'
 import Resume from 'pages/Resume/Resume'
 import ProjectConfiguration from 'pages/ProjectConfiguration/ProjectConfiguration'
+import ProjectDetail from 'pages/ProjectDetail/ProjectDetail'
 import {PAGE} from 'routing'
 
 const Navigation: FC = () => {
@@ -23,6 +24,7 @@ const Navigation: FC = () => {
                 <Route path={PAGE.SPECIALISTS} element={<Specialists/>}/>
 
                 <Route path={PAGE.PROJECTS} element={<Projects/>}/>
+                <Route path={PAGE.PROJECT_DETAIL} element={<ProjectDetail/>}/>
 
                 <Route element={<AuthPrivateRoute/>}>
                     <Route path={PAGE.RESUME} element={<Resume/>}/>

@@ -73,7 +73,10 @@ const ProfileProjectCard: FC<Props> = (props) => {
                     : <Box sx={styles.cardActions}>
                         <Button
                             component={Link}
-                            to=""
+                            to={PAGE.PROJECT_DETAIL.replace(
+                                ':projectId',
+                                props.project.id.toString()
+                            )}
                             size="small"
                             sx={styles.button}
                         >

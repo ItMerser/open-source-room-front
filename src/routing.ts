@@ -7,7 +7,8 @@ export enum PAGE {
     RESUME = '/specialists/:specialistId/resume',
 
     PROJECTS = '/projects',
-    PROJECT_CONFIGURATION = '/projects/:projectId/configuration'
+    PROJECT_CONFIGURATION = '/projects/:projectId/configuration',
+    PROJECT_DETAIL = '/projects/:projectId/detail'
 }
 
 export enum API {
