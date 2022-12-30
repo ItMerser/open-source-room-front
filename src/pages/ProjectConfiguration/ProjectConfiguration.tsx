@@ -8,6 +8,7 @@ import ProjectLanguagesBlock
     from 'components/block/ProjectLanguagesBlock/ProjectLanguagesBlock'
 import ProjectTechnologiesBlock
     from 'components/block/ProjectTechnologiesBlock/ProjectTechnologiesBlock'
+import TeammatesBlock from 'components/block/TeammatesBlock/TeammatesBlock'
 import {useRetrieveProject} from 'hooks/project'
 import {useAppSelector} from 'store/config'
 import {SIDE_BAR_ITEMS} from 'const/components'
@@ -41,6 +42,8 @@ const ProjectConfiguration: FC = () => {
                                                    projectTechnologies={data.technologies}
                                                    isAddable={true}/>
                 }
+
+                {data && <TeammatesBlock specialists={data.team} isEditable={true}/>}
             </Box>
         </Box>
     )

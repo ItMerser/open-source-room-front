@@ -1,31 +1,32 @@
 import React, {FC} from 'react'
 import {Paper, Grid, Typography} from '@mui/material'
-import ProfileProjectCard from 'components/cards/ProfileProjectCard/ProfileProjectCard'
-import NewProfileProjectCard from 'components/cards/NewProfileProjectCard/NewProfileProjectCard'
-import {ISpecialistProject} from 'models/types/specialist'
+import ProjectTeammateCard from 'components/cards/ProjectTeammateCard/ProjectTeammateCard'
+import NewProjectSpecialistCard
+    from 'components/cards/NewProjectSpecialistCard/NewProjectSpecialistCard'
+import {IProjectSpecialist} from 'models/types/project'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
-    title: string
-    projects: ISpecialistProject[]
+    specialists: IProjectSpecialist[]
     isEditable?: boolean
 }
 
-const ProjectsBlock: FC<Props> = (props) => {
+const TeammatesBlock: FC<Props> = (props) => {
     return (
         <Paper elevation={12} sx={styles.paper}>
-            <Typography variant="h5" sx={styles.title}>{props.title}</Typography>
+            <Typography variant="h5" sx={styles.title}>TEAM</Typography>
             <Grid container direction="row" justifyContent="start" flexWrap="wrap">
-                {props.projects.map((project, pk) => {
+                {props.specialists.map((specialist, pk) => {
                     return (
                         <Grid item md={3} sm={6} xs={12} key={pk}>
-                            <ProfileProjectCard project={project} isEditable={props.isEditable}/>
+                            <ProjectTeammateCard specialist={specialist}
+                                                 isEditable={props.isEditable}/>
                         </Grid>
                     )
                 })}
                 {props.isEditable &&
                     <Grid item md={3} sm={6} xs={12}>
-                        <NewProfileProjectCard/>
+                        <NewProjectSpecialistCard/>
                     </Grid>
                 }
             </Grid>
@@ -33,7 +34,7 @@ const ProjectsBlock: FC<Props> = (props) => {
     )
 }
 
-export default ProjectsBlock
+export default TeammatesBlock
 
 const styles = {
     paper: {
