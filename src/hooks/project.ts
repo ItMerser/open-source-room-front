@@ -5,7 +5,9 @@ import {
     IRetrieveProjectState,
     ICreateProjectsState,
     IUpdateProjectsState,
-    IDeleteProjectsState
+    IDeleteProjectsState,
+    IAddLanguagesToProjectState,
+    IRemoveProjectLanguagesState, IAddTechnologiesToProjectState
 } from 'models/types/states'
 import {BASE_API_URL, DEFAULT_INITIAL_STATE} from 'const/common'
 import {API} from 'routing'
@@ -119,3 +121,100 @@ export const useDeleteProject = () => {
 
     return {status, data, error, loading, deleteProject}
 }
+
+export const useAddLanguagesToProject = () => {
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<IAddLanguagesToProjectState>(DEFAULT_INITIAL_STATE)
+
+    const addLanguages = (data: unknown, projectId: number, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.ADD_LANGUAGES_TO_PROJECT.replace(
+                ':projectId',
+                projectId.toString()
+            ),
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, addLanguages}
+}
+
+export const useRemoveProjectLanguages = () => {
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<IRemoveProjectLanguagesState>(DEFAULT_INITIAL_STATE)
+
+    const removeLanguages = (data: unknown, projectId: number, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.REMOVE_PROJECT_LANGUAGES.replace(
+                ':projectId',
+                projectId.toString()
+            ),
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, removeLanguages}
+}
+
+export const useAddTechnologiesToProject = () => {
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<IAddTechnologiesToProjectState>(DEFAULT_INITIAL_STATE)
+
+    const addTechnologies = (data: unknown, projectId: number, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.ADD_TECHNOLOGIES_TO_PROJECT.replace(
+                ':projectId',
+                projectId.toString()
+            ),
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, addTechnologies}
+}
+
+export const useRemoveProjectTechnologies = () => {
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<IRemoveProjectLanguagesState>(DEFAULT_INITIAL_STATE)
+
+    const removeTechnologies = (data: unknown, projectId: number, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.REMOVE_PROJECT_TECHNOLOGIES.replace(
+                ':projectId',
+                projectId.toString()
+            ),
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+            data: data
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, removeTechnologies}
+}
+

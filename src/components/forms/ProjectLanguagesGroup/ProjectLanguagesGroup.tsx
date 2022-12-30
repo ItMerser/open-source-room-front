@@ -1,12 +1,14 @@
 import React, {FC, ChangeEvent, useEffect} from 'react'
 import {FormGroup, FormControlLabel, Checkbox, Box, Button} from '@mui/material'
 import {useForm} from 'react-hook-form'
-import {useAddLanguagesToSpecialist} from 'hooks/specialists'
+import {useAddLanguagesToProject} from 'hooks/project'
 import {useAppSelector, useAppDispatch} from 'store/config'
-import {setUpdateProfileData} from 'store/slices/commonSlice'
+import {setUpdateConfigurationData} from 'store/slices/commonSlice'
+import {languagesForChoice} from 'utils/common'
 
 interface Props {
-    specialistLanguages: string[]
+    projectId: number
+    projectLanguages: string[]
     closeForm: () => void
 }
 
@@ -14,15 +16,14 @@ interface IData {
     languages: string[]
 }
 
-const notSelectedLanguages = (allLanguages: string[], specialistLanguages: string[]): string[] => {
-    return allLanguages.filter((language) => !specialistLanguages.includes(language))
-}
-
-const LanguagesCheckBoxGroup: FC<Props> = (props) => {
+const ProjectLanguagesGroup: FC<Props> = (props) => {
     const {languages} = useAppSelector(state => state.commonReducer)
     const {token} = useAppSelector(state => state.specialistReducer)
-    const {status, addLanguages} = useAddLanguagesToSpecialist()
-    const languagesForAdding = notSelectedLanguages(languages || [], props.specialistLanguages)
+    const {status, addLanguages} = useAddLanguagesToProject()
+    const languagesForAdding = languagesForChoice(
+        languages || [],
+        props.projectLanguages
+    )
 
     const dispatch = useAppDispatch()
     const {handleSubmit} = useForm({mode: 'onBlur'})
@@ -42,13 +43,13 @@ const LanguagesCheckBoxGroup: FC<Props> = (props) => {
     }
 
     const submit = () => {
-        addLanguages(patchData, token || '')
+        addLanguages(patchData, props.projectId,token || '')
     }
 
     useEffect(() => {
         if (status === 200) {
             props.closeForm()
-            dispatch(setUpdateProfileData())
+            dispatch(setUpdateConfigurationData())
         }
     }, [status])
 
@@ -73,7 +74,7 @@ const LanguagesCheckBoxGroup: FC<Props> = (props) => {
     )
 }
 
-export default LanguagesCheckBoxGroup
+export default ProjectLanguagesGroup
 
 const styles = {
     submitButton: {

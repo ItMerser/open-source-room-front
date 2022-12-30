@@ -63,7 +63,7 @@ const ProfileProjectCard: FC<Props> = (props) => {
                             size="small"
                             sx={styles.button}
                         >
-                            CONFIGURATION
+                            CONFIGURE
                         </Button>
                         <Button sx={styles.deleteButton} onClick={changeConfirmDialogState}>
                             DELETE
@@ -81,22 +81,6 @@ const ProfileProjectCard: FC<Props> = (props) => {
                         </Button>
                     </Box>
             }
-
-            {/*<Box sx={styles.cardActions}>*/}
-            {/*    <Button*/}
-            {/*        component={Link}*/}
-            {/*        to=""*/}
-            {/*        size="small"*/}
-            {/*        sx={styles.button}*/}
-            {/*    >*/}
-            {/*        DETAIL*/}
-            {/*    </Button>*/}
-            {/*    {props.isEditable &&*/}
-            {/*        <Button sx={styles.deleteButton} onClick={changeConfirmDialogState}>*/}
-            {/*            DELETE*/}
-            {/*        </Button>*/}
-            {/*    }*/}
-            {/*</Box>*/}
 
             <ConfirmDialog
                 isOpen={isOpenConfirmDialog}

@@ -1,8 +1,18 @@
 import React, {FC, useEffect, useState} from 'react'
-import {Paper, Typography, Chip, Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@mui/material'
+import {
+    Paper,
+    Typography,
+    Chip,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button
+} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import ClearIcon from '@mui/icons-material/Clear'
-import TechnologiesCheckBoxGroup from 'components/forms/TechnologiesCheckBoxGroup/TechnologiesCheckBoxGroup'
+import SpecialistTechnologiesGroup
+    from 'components/forms/SpecialistTechnologiesGroup/SpecialistTechnologiesGroup'
 import {useRemoveSpecialistTechnologies} from 'hooks/specialists'
 import {useAppDispatch, useAppSelector} from 'store/config'
 import {setUpdateProfileData} from 'store/slices/commonSlice'
@@ -73,8 +83,9 @@ const SpecialistTechnologiesBlock: FC<Props> = (props) => {
                     Select technologies witch do you own
                 </DialogTitle>
                 <DialogContent>
-                    <TechnologiesCheckBoxGroup specialistTechnologies={props.specialistTechnologies}
-                                               closeForm={changePatchFormState}/>
+                    <SpecialistTechnologiesGroup
+                        specialistTechnologies={props.specialistTechnologies}
+                        closeForm={changePatchFormState}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={changePatchFormState}>CANCEL</Button>

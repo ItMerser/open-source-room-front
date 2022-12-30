@@ -33,7 +33,7 @@ export interface IAddLanguagesToSpecialistState extends State {
     data: null
 }
 
-export interface IRemoveSpecialistLanguages extends State {
+export interface IRemoveSpecialistLanguagesState extends State {
     data: null
 }
 
@@ -41,7 +41,7 @@ export interface IAddTechnologiesToSpecialistState extends State {
     data: null
 }
 
-export interface IRemoveSpecialistTechnologies extends State {
+export interface IRemoveSpecialistTechnologiesState extends State {
     data: null
 }
 
@@ -64,4 +64,20 @@ export interface ICreateProjectsState extends State {
 
 export interface IDeleteProjectsState extends State {
     data: {deletedProjectPk: number} | null
+}
+
+export interface IAddLanguagesToProjectState extends State {
+    data: null
+}
+
+export interface IRemoveProjectLanguagesState extends State {
+    data: null
+}
+
+export interface IAddTechnologiesToProjectState extends State {
+    data: null
+}
+
+export interface IRemoveProjectTechnologiesState extends State {
+    data: null
 }

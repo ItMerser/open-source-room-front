@@ -1,56 +1,57 @@
 import React, {FC, useEffect, useState} from 'react'
 import {
-    Button,
+    Paper,
+    Typography,
     Chip,
     Dialog,
-    DialogActions,
-    DialogContent,
     DialogTitle,
-    Paper,
-    Typography
+    DialogContent,
+    DialogActions,
+    Button
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import ClearIcon from '@mui/icons-material/Clear'
-import SpecialistLanguagesGroup
-    from 'components/forms/SpecialistLanguagesGroup/SpecialistLanguagesGroup'
-import {useRemoveSpecialistLanguages} from 'hooks/specialists'
+import ProjectTechnologiesGroup
+    from 'components/forms/ProjectTechnologiesGroup/ProjectTechnologiesGroup'
+import {useRemoveProjectTechnologies} from 'hooks/project'
 import {useAppDispatch, useAppSelector} from 'store/config'
-import {setUpdateProfileData} from 'store/slices/commonSlice'
+import {setUpdateConfigurationData} from 'store/slices/commonSlice'
 import {LOADING_STATE} from 'models/enums/common'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
-    specialistLanguages: string[]
+    projectId: number
+    projectTechnologies: string[]
     isAddable?: boolean
 }
 
-const SpecialistLanguagesBlock: FC<Props> = (props) => {
-    const {loading, removeLanguages} = useRemoveSpecialistLanguages()
+const ProjectTechnologiesBlock: FC<Props> = (props) => {
+    const {loading, removeTechnologies} = useRemoveProjectTechnologies()
     const {token} = useAppSelector(state => state.specialistReducer)
     const dispatch = useAppDispatch()
     const [patchForm, setPatchForm] = useState<boolean>(false)
 
     const changePatchFormState = () => setPatchForm(!patchForm)
 
-    const deleteLanguage = (language: string) => {
-        removeLanguages({languages: [language]}, token || '')
+    const deleteTechnology = (technology: string) => {
+        removeTechnologies({technologies: [technology]}, props.projectId, token || '')
     }
 
     useEffect(() => {
         if (loading === LOADING_STATE.LOADED) {
-            dispatch(setUpdateProfileData())
+            dispatch(setUpdateConfigurationData())
         }
     }, [loading])
 
     return (
         <Paper elevation={12} sx={styles.paper}>
-            <Typography variant="h5" sx={styles.title}>LANGUAGES</Typography>
-            {props.specialistLanguages && props.specialistLanguages.map((lang: string, pk: number) => {
+            <Typography variant="h5" sx={styles.title}>TECHNOLOGIES</Typography>
+            {props.projectTechnologies && props.projectTechnologies.map((tech: string, pk: number) => {
                 if (props.isAddable) {
                     return (
                         <Chip
-                            onDelete={() => deleteLanguage(lang)}
-                            label={lang}
+                            onDelete={() => deleteTechnology(tech)}
+                            label={tech}
                             variant="outlined"
                             key={pk}
                             deleteIcon={<ClearIcon sx={styles.clearIcon}/>}
@@ -60,7 +61,7 @@ const SpecialistLanguagesBlock: FC<Props> = (props) => {
                 } else {
                     return (
                         <Chip
-                            label={lang}
+                            label={tech}
                             variant="outlined"
                             key={pk}
                             sx={styles.chip}
@@ -80,11 +81,13 @@ const SpecialistLanguagesBlock: FC<Props> = (props) => {
 
             <Dialog open={patchForm} onClose={changePatchFormState}>
                 <DialogTitle textAlign="center">
-                    Select languages witch do you own
+                    Select technologies witch uses in the project
                 </DialogTitle>
                 <DialogContent>
-                    <SpecialistLanguagesGroup specialistLanguages={props.specialistLanguages}
-                                              closeForm={changePatchFormState}/>
+                    <ProjectTechnologiesGroup
+                        projectTechnologies={props.projectTechnologies}
+                        projectId={props.projectId}
+                        closeForm={changePatchFormState}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={changePatchFormState}>CANCEL</Button>
@@ -94,7 +97,7 @@ const SpecialistLanguagesBlock: FC<Props> = (props) => {
     )
 }
 
-export default SpecialistLanguagesBlock
+export default ProjectTechnologiesBlock
 
 const styles = {
     paper: {
