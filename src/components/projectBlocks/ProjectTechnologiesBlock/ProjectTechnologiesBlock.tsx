@@ -11,21 +11,22 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import ClearIcon from '@mui/icons-material/Clear'
-import SpecialistTechnologiesGroup
-    from 'components/forms/SpecialistTechnologiesGroup/SpecialistTechnologiesGroup'
-import {useRemoveSpecialistTechnologies} from 'hooks/specialists'
+import ProjectTechnologiesGroup
+    from 'components/forms/ProjectTechnologiesGroup/ProjectTechnologiesGroup'
+import {useRemoveProjectTechnologies} from 'hooks/project'
 import {useAppDispatch, useAppSelector} from 'store/config'
-import {setUpdateProfileData} from 'store/slices/commonSlice'
+import {setUpdateConfigurationData} from 'store/slices/commonSlice'
 import {LOADING_STATE} from 'models/enums/common'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
-    specialistTechnologies: string[]
-    isAddable?: boolean
+    projectId: number
+    projectTechnologies: string[]
+    isEditable: boolean
 }
 
-const SpecialistTechnologiesBlock: FC<Props> = (props) => {
-    const {loading, removeTechnologies} = useRemoveSpecialistTechnologies()
+const ProjectTechnologiesBlock: FC<Props> = (props) => {
+    const {loading, removeTechnologies} = useRemoveProjectTechnologies()
     const {token} = useAppSelector(state => state.specialistReducer)
     const dispatch = useAppDispatch()
     const [patchForm, setPatchForm] = useState<boolean>(false)
@@ -33,20 +34,20 @@ const SpecialistTechnologiesBlock: FC<Props> = (props) => {
     const changePatchFormState = () => setPatchForm(!patchForm)
 
     const deleteTechnology = (technology: string) => {
-        removeTechnologies({technologies: [technology]}, token || '')
+        removeTechnologies({technologies: [technology]}, props.projectId, token || '')
     }
 
     useEffect(() => {
         if (loading === LOADING_STATE.LOADED) {
-            dispatch(setUpdateProfileData())
+            dispatch(setUpdateConfigurationData())
         }
     }, [loading])
 
     return (
         <Paper elevation={12} sx={styles.paper}>
             <Typography variant="h5" sx={styles.title}>TECHNOLOGIES</Typography>
-            {props.specialistTechnologies && props.specialistTechnologies.map((tech: string, pk: number) => {
-                if (props.isAddable) {
+            {props.projectTechnologies && props.projectTechnologies.map((tech: string, pk: number) => {
+                if (props.isEditable) {
                     return (
                         <Chip
                             onDelete={() => deleteTechnology(tech)}
@@ -69,7 +70,7 @@ const SpecialistTechnologiesBlock: FC<Props> = (props) => {
                 }
             })}
             {
-                props.isAddable &&
+                props.isEditable &&
                 <Chip
                     onClick={changePatchFormState}
                     label={<AddIcon/>}
@@ -80,11 +81,12 @@ const SpecialistTechnologiesBlock: FC<Props> = (props) => {
 
             <Dialog open={patchForm} onClose={changePatchFormState}>
                 <DialogTitle textAlign="center">
-                    Select technologies witch do you own
+                    Select technologies witch uses in the project
                 </DialogTitle>
                 <DialogContent>
-                    <SpecialistTechnologiesGroup
-                        specialistTechnologies={props.specialistTechnologies}
+                    <ProjectTechnologiesGroup
+                        projectTechnologies={props.projectTechnologies}
+                        projectId={props.projectId}
                         closeForm={changePatchFormState}/>
                 </DialogContent>
                 <DialogActions>
@@ -95,7 +97,7 @@ const SpecialistTechnologiesBlock: FC<Props> = (props) => {
     )
 }
 
-export default SpecialistTechnologiesBlock
+export default ProjectTechnologiesBlock
 
 const styles = {
     paper: {

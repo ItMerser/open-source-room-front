@@ -24,7 +24,7 @@ import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
     specialist: ISpecialist
-    showEmptyValues: boolean
+    isEditable: boolean
 }
 
 const additionalFields = ['name', 'surname', 'age', 'email', 'country', 'city', 'github']
@@ -38,7 +38,7 @@ const existsFields = (specialist: ISpecialist): string[] => {
 }
 
 const SpecialistInfoBlock: FC<Props> = (props) => {
-    const fieldsForShow = props.showEmptyValues ? additionalFields : existsFields(props.specialist)
+    const fieldsForShow = props.isEditable ? additionalFields : existsFields(props.specialist)
     const [patchForm, setPatchForm] = useState<boolean>(false)
 
     const changePatchFormState = () => setPatchForm(!patchForm)
@@ -58,7 +58,7 @@ const SpecialistInfoBlock: FC<Props> = (props) => {
                 </Typography>
             </Breadcrumbs>
 
-            {props.showEmptyValues
+            {props.isEditable
                 ? <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
                     <EditIcon/>
                 </Button>

@@ -11,21 +11,21 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import ClearIcon from '@mui/icons-material/Clear'
-import ProjectLanguagesGroup from 'components/forms/ProjectLanguagesGroup/ProjectLanguagesGroup'
+import SpecialistLanguagesGroup
+    from 'components/forms/SpecialistLanguagesGroup/SpecialistLanguagesGroup'
+import {useRemoveSpecialistLanguages} from 'hooks/specialists'
 import {useAppDispatch, useAppSelector} from 'store/config'
-import {setUpdateConfigurationData} from 'store/slices/commonSlice'
-import {useRemoveProjectLanguages} from 'hooks/project'
+import {setUpdateProfileData} from 'store/slices/commonSlice'
 import {LOADING_STATE} from 'models/enums/common'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
-    projectId: number
-    projectLanguages: string[]
-    isAddable?: boolean
+    specialistLanguages: string[]
+    isEditable: boolean
 }
 
-const ProjectLanguagesBlock: FC<Props> = (props) => {
-    const {loading, removeLanguages} = useRemoveProjectLanguages()
+const SpecialistLanguagesBlock: FC<Props> = (props) => {
+    const {loading, removeLanguages} = useRemoveSpecialistLanguages()
     const {token} = useAppSelector(state => state.specialistReducer)
     const dispatch = useAppDispatch()
     const [patchForm, setPatchForm] = useState<boolean>(false)
@@ -33,20 +33,20 @@ const ProjectLanguagesBlock: FC<Props> = (props) => {
     const changePatchFormState = () => setPatchForm(!patchForm)
 
     const deleteLanguage = (language: string) => {
-        removeLanguages({languages: [language]}, props.projectId, token || '')
+        removeLanguages({languages: [language]}, token || '')
     }
 
     useEffect(() => {
         if (loading === LOADING_STATE.LOADED) {
-            dispatch(setUpdateConfigurationData())
+            dispatch(setUpdateProfileData())
         }
     }, [loading])
 
     return (
         <Paper elevation={12} sx={styles.paper}>
             <Typography variant="h5" sx={styles.title}>LANGUAGES</Typography>
-            {props.projectLanguages && props.projectLanguages.map((lang: string, pk: number) => {
-                if (props.isAddable) {
+            {props.specialistLanguages && props.specialistLanguages.map((lang: string, pk: number) => {
+                if (props.isEditable) {
                     return (
                         <Chip
                             onDelete={() => deleteLanguage(lang)}
@@ -69,7 +69,7 @@ const ProjectLanguagesBlock: FC<Props> = (props) => {
                 }
             })}
             {
-                props.isAddable &&
+                props.isEditable &&
                 <Chip
                     onClick={changePatchFormState}
                     label={<AddIcon/>}
@@ -80,12 +80,11 @@ const ProjectLanguagesBlock: FC<Props> = (props) => {
 
             <Dialog open={patchForm} onClose={changePatchFormState}>
                 <DialogTitle textAlign="center">
-                    Select languages witch uses in the project
+                    Select languages witch do you own
                 </DialogTitle>
                 <DialogContent>
-                    <ProjectLanguagesGroup projectLanguages={props.projectLanguages}
-                                           closeForm={changePatchFormState}
-                                           projectId={props.projectId}/>
+                    <SpecialistLanguagesGroup specialistLanguages={props.specialistLanguages}
+                                              closeForm={changePatchFormState}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={changePatchFormState}>CANCEL</Button>
@@ -95,7 +94,7 @@ const ProjectLanguagesBlock: FC<Props> = (props) => {
     )
 }
 
-export default ProjectLanguagesBlock
+export default SpecialistLanguagesBlock
 
 const styles = {
     paper: {

@@ -13,7 +13,7 @@ import {BACKGROUND_COLOR, TEXT_COLOR, ERROR_MESSAGE_COLOR} from 'const/styles'
 
 interface Props {
     project: ISpecialistProject
-    isEditable?: boolean
+    isEditable: boolean
 }
 
 const ProfileProjectCard: FC<Props> = (props) => {

@@ -9,7 +9,6 @@ import {IProjectSpecialist} from 'models/types/project'
 
 interface Props {
     specialist: IProjectSpecialist
-    isEditable?: boolean
 }
 
 const ProjectTeammateCard: FC<Props> = (props) => {

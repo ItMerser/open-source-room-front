@@ -2,13 +2,13 @@ import React, {FC, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {Box} from '@mui/material'
 import SideBar from 'components/common/SideBar/SideBar'
-import ProjectInfoBlock from 'components/block/ProjectInfoBlock/ProjectInfoBlock'
-import DescriptionBlock from 'components/block/DescriptionBlock/DescriptionBlock'
+import ProjectInfoBlock from 'components/projectBlocks/ProjectInfoBlock/ProjectInfoBlock'
+import DescriptionBlock from 'components/projectBlocks/DescriptionBlock/DescriptionBlock'
 import ProjectLanguagesBlock
-    from 'components/block/ProjectLanguagesBlock/ProjectLanguagesBlock'
+    from 'components/projectBlocks/ProjectLanguagesBlock/ProjectLanguagesBlock'
 import ProjectTechnologiesBlock
-    from 'components/block/ProjectTechnologiesBlock/ProjectTechnologiesBlock'
-import TeammatesBlock from 'components/block/TeammatesBlock/TeammatesBlock'
+    from 'components/projectBlocks/ProjectTechnologiesBlock/ProjectTechnologiesBlock'
+import TeammatesBlock from 'components/projectBlocks/TeammatesBlock/TeammatesBlock'
 import {useRetrieveProject} from 'hooks/project'
 import {useAppSelector} from 'store/config'
 import {SIDE_BAR_ITEMS} from 'const/components'
@@ -29,18 +29,18 @@ const ProjectConfiguration: FC = () => {
                 <SideBar items={SIDE_BAR_ITEMS}/>
             </Box>
             <Box sx={styles.content}>
-                {data && <ProjectInfoBlock project={data} showEmptyValues={true}/>}
+                {data && <ProjectInfoBlock project={data} isEditable={true}/>}
 
                 {data && <DescriptionBlock description={data.description}/>}
 
                 {data && <ProjectLanguagesBlock projectId={data.id}
                                                 projectLanguages={data.languages}
-                                                isAddable={true}/>
+                                                isEditable={true}/>
                 }
 
                 {data && <ProjectTechnologiesBlock projectId={data.id}
                                                    projectTechnologies={data.technologies}
-                                                   isAddable={true}/>
+                                                   isEditable={true}/>
                 }
 
                 {data && <TeammatesBlock specialists={data.team} isEditable={true}/>}

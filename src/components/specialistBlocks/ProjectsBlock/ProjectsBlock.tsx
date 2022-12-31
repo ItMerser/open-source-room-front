@@ -8,7 +8,7 @@ import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 interface Props {
     title: string
     projects: ISpecialistProject[]
-    isEditable?: boolean
+    isEditable: boolean
 }
 
 const ProjectsBlock: FC<Props> = (props) => {

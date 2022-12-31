@@ -17,7 +17,7 @@ import ProjectUpdatingForm from 'components/forms/ProjectUpdatingForm/ProjectUpd
 
 interface Props {
     project: IProject
-    showEmptyValues: boolean
+    isEditable: boolean
 }
 
 const additionalFields = ['github']
@@ -31,7 +31,7 @@ const existsFields = (project: IProject): string[] => {
 }
 
 const ProjectInfoBlock: FC<Props> = (props) => {
-    const fieldsForShow = props.showEmptyValues ? additionalFields : existsFields(props.project)
+    const fieldsForShow = props.isEditable ? additionalFields : existsFields(props.project)
     const [patchForm, setPatchForm] = useState<boolean>(false)
 
     const changePatchFormState = () => setPatchForm(!patchForm)
@@ -49,7 +49,7 @@ const ProjectInfoBlock: FC<Props> = (props) => {
                 </Typography>
             </Breadcrumbs>
 
-            {props.showEmptyValues &&
+            {props.isEditable &&
                 <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
                     <EditIcon/>
                 </Button>

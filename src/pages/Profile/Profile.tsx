@@ -1,13 +1,14 @@
 import React, {FC, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {Box} from '@mui/material'
-import SpecialistInfoBlock from 'components/block/SpecialistInfoBlock/SpecialistInfoBlock'
-import AboutBlock from 'components/block/AboutBlock/AboutBlock'
+import SpecialistInfoBlock
+    from 'components/specialistBlocks/SpecialistInfoBlock/SpecialistInfoBlock'
+import AboutBlock from 'components/specialistBlocks/AboutBlock/AboutBlock'
 import SpecialistLanguagesBlock
-    from 'components/block/SpecialistLanguagesBlock/SpecialistLanguagesBlock'
+    from 'components/specialistBlocks/SpecialistLanguagesBlock/SpecialistLanguagesBlock'
 import SpecialistTechnologiesBlock
-    from 'components/block/SpecialistTechnologiesBlock/SpecialistTechnologiesBlock'
-import ProjectsBlock from 'components/block/ProjectsBlock/ProjectsBlock'
+    from 'components/specialistBlocks/SpecialistTechnologiesBlock/SpecialistTechnologiesBlock'
+import ProjectsBlock from 'components/specialistBlocks/ProjectsBlock/ProjectsBlock'
 import SideBar from 'components/common/SideBar/SideBar'
 import {SIDE_BAR_ITEMS} from 'const/components'
 import {useRetrieveSpecialist} from 'hooks/specialists'
@@ -31,19 +32,20 @@ const Profile: FC = () => {
 
             <Box sx={styles.content}>
                 {specialist &&
-                    <SpecialistInfoBlock specialist={specialist} showEmptyValues={true}/>}
+                    <SpecialistInfoBlock specialist={specialist} isEditable={true}/>}
 
                 {specialist && <AboutBlock about={specialist.about}/>}
 
                 {specialist && <SpecialistLanguagesBlock specialistLanguages={specialist.languages}
-                                                         isAddable={true}/>}
+                                                         isEditable={true}/>}
 
                 {specialist &&
                     <SpecialistTechnologiesBlock specialistTechnologies={specialist.technologies}
-                                                 isAddable={true}/>
+                                                 isEditable={true}/>
                 }
 
-                {specialist && <ProjectsBlock title="PROJECTS" projects={specialist.projects}/>}
+                {specialist && <ProjectsBlock title="PROJECTS" projects={specialist.projects}
+                                              isEditable={false}/>}
 
                 {specialist &&
                     <ProjectsBlock title="OWN PROJECTS" projects={specialist.ownProjects}

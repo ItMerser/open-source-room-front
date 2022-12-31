@@ -8,7 +8,7 @@ import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
 interface Props {
     specialists: IProjectSpecialist[]
-    isEditable?: boolean
+    isEditable: boolean
 }
 
 const TeammatesBlock: FC<Props> = (props) => {
@@ -19,8 +19,7 @@ const TeammatesBlock: FC<Props> = (props) => {
                 {props.specialists.map((specialist, pk) => {
                     return (
                         <Grid item md={3} sm={6} xs={12} key={pk}>
-                            <ProjectTeammateCard specialist={specialist}
-                                                 isEditable={props.isEditable}/>
+                            <ProjectTeammateCard specialist={specialist}/>
                         </Grid>
                     )
                 })}
