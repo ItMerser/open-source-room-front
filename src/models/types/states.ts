@@ -81,3 +81,7 @@ export interface IAddTechnologiesToProjectState extends State {
 export interface IRemoveProjectTechnologiesState extends State {
     data: null
 }
+
+export interface ITakePartInOwnProjectState extends State {
+    data: null
+}

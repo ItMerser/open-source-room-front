@@ -1,6 +1,7 @@
 import {
     setSpecialistId,
     setSpecialistNickname,
+    setCurrentProject,
     setOwnProjects,
     setToken
 } from 'store/slices/specialistSlice'
@@ -14,6 +15,7 @@ export const login = (
 ) => {
     store.dispatch(setSpecialistId(specialist.id))
     store.dispatch(setSpecialistNickname(specialist.nickname))
+    store.dispatch(setCurrentProject(specialist.currentProject))
     store.dispatch(setOwnProjects(specialist.ownProjects))
     if ('token' in specialist) {
         store.dispatch(setToken(specialist.token))
@@ -29,6 +31,7 @@ export const login = (
 export const logout = () => {
     store.dispatch(setSpecialistId(null))
     store.dispatch(setSpecialistNickname(null))
+    store.dispatch(setCurrentProject(null))
     store.dispatch(setOwnProjects(null))
     store.dispatch(setToken(null))
 

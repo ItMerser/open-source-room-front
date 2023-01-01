@@ -34,4 +34,5 @@ export enum API {
     REMOVE_PROJECT_LANGUAGES = '/projects/:projectId/languages/deletion',
     ADD_TECHNOLOGIES_TO_PROJECT = '/projects/:projectId/technologies/adding',
     REMOVE_PROJECT_TECHNOLOGIES = '/projects/:projectId/technologies/deletion',
+    TAKE_PART_IN_OWN_PROJECT = '/projects/:projectId/take_part'
 }

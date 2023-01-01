@@ -1,9 +1,11 @@
 import {createSlice, Draft, PayloadAction} from '@reduxjs/toolkit'
 import {ISpecialistProject} from 'models/types/specialist'
+import {IProject} from 'models/types/project'
 
 interface IInitialState {
     id: number | null
     nickname: string | null
+    currentProject: ISpecialistProject | IProject | null
     ownProjects: ISpecialistProject[] | null
     token: string | null
 }
@@ -11,6 +13,7 @@ interface IInitialState {
 const initialState = {
     id: null,
     nickname: null,
+    currentProject: null,
     ownProjects: null,
     token: null
 }
@@ -27,6 +30,12 @@ const specialistSlice = createSlice({
             payload: PayloadAction<string | null>
         ) => {
             state.nickname = payload.payload
+        },
+        setCurrentProject: (
+            state: Draft<IInitialState>,
+            payload: PayloadAction<ISpecialistProject | IProject | null>
+        ) => {
+            state.currentProject = payload.payload
         },
         setOwnProjects: (
             state: Draft<IInitialState>,
@@ -53,6 +62,7 @@ const specialistSlice = createSlice({
 export const {
     setSpecialistId,
     setSpecialistNickname,
+    setCurrentProject,
     setOwnProjects,
     addOwnProject,
     setToken

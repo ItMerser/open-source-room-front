@@ -7,7 +7,10 @@ import {
     IUpdateProjectsState,
     IDeleteProjectsState,
     IAddLanguagesToProjectState,
-    IRemoveProjectLanguagesState, IAddTechnologiesToProjectState
+    IRemoveProjectLanguagesState,
+    IAddTechnologiesToProjectState,
+    IRemoveProjectTechnologiesState,
+    ITakePartInOwnProjectState
 } from 'models/types/states'
 import {BASE_API_URL, DEFAULT_INITIAL_STATE} from 'const/common'
 import {API} from 'routing'
@@ -200,7 +203,7 @@ export const useRemoveProjectTechnologies = () => {
         data,
         error,
         loading
-    }, setState] = useState<IRemoveProjectLanguagesState>(DEFAULT_INITIAL_STATE)
+    }, setState] = useState<IRemoveProjectTechnologiesState>(DEFAULT_INITIAL_STATE)
 
     const removeTechnologies = (data: unknown, projectId: number, token: string) => {
         const config: AxiosRequestConfig = {
@@ -216,5 +219,28 @@ export const useRemoveProjectTechnologies = () => {
     }
 
     return {status, data, error, loading, removeTechnologies}
+}
+
+export const useTakePartInOwnProject = () => {
+    const [{
+        status,
+        data,
+        error,
+        loading
+    }, setState] = useState<IRemoveProjectTechnologiesState>(DEFAULT_INITIAL_STATE)
+
+    const takePart = (projectId: number, token: string) => {
+        const config: AxiosRequestConfig = {
+            url: BASE_API_URL + API.TAKE_PART_IN_OWN_PROJECT.replace(
+                ':projectId',
+                projectId.toString()
+            ),
+            method: Method.PATCH,
+            headers: {Authorization: `Token ${token}`},
+        }
+        request(config, setState)
+    }
+
+    return {status, data, error, loading, takePart}
 }
 

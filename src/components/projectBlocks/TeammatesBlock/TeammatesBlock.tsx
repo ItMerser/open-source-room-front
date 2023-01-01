@@ -1,8 +1,6 @@
 import React, {FC} from 'react'
 import {Paper, Grid, Typography} from '@mui/material'
 import ProjectTeammateCard from 'components/cards/ProjectTeammateCard/ProjectTeammateCard'
-import NewProjectSpecialistCard
-    from 'components/cards/NewProjectSpecialistCard/NewProjectSpecialistCard'
 import {IProjectSpecialist} from 'models/types/project'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
 
@@ -23,11 +21,6 @@ const TeammatesBlock: FC<Props> = (props) => {
                         </Grid>
                     )
                 })}
-                {props.isEditable &&
-                    <Grid item md={3} sm={6} xs={12}>
-                        <NewProjectSpecialistCard/>
-                    </Grid>
-                }
             </Grid>
         </Paper>
     )

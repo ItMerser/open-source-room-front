@@ -12,7 +12,7 @@ import {
     IUpdateSpecialistState,
     IAddLanguagesToSpecialistState,
     IAddTechnologiesToSpecialistState,
-    IRemoveProjectLanguagesState,
+    IRemoveSpecialistLanguagesState,
     IRemoveSpecialistTechnologiesState
 } from 'models/types/states'
 
@@ -136,7 +136,7 @@ export const useRemoveSpecialistLanguages = () => {
     const [
         {status, data, error, loading},
         setState
-    ] = useState<IRemoveProjectLanguagesState>(DEFAULT_INITIAL_STATE)
+    ] = useState<IRemoveSpecialistLanguagesState>(DEFAULT_INITIAL_STATE)
 
     const removeLanguages = (data: unknown, token: string) => {
         const config: AxiosRequestConfig = {

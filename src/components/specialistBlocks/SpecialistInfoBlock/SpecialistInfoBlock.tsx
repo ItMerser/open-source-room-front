@@ -39,14 +39,27 @@ const existsFields = (specialist: ISpecialist): string[] => {
 
 const SpecialistInfoBlock: FC<Props> = (props) => {
     const fieldsForShow = props.isEditable ? additionalFields : existsFields(props.specialist)
-    const [patchForm, setPatchForm] = useState<boolean>(false)
+    const [editFormState, setEditFormState] = useState<boolean>(false)
 
-    const changePatchFormState = () => setPatchForm(!patchForm)
+    const changeEditFormState = () => setEditFormState(!editFormState)
 
     const downloadResume = getPDFPage('resume', `${props.specialist.nickname}`)
 
     return (
         <Paper elevation={12} sx={styles.paper}>
+            {props.isEditable
+                ? <Box sx={styles.actionsBlock}>
+                    <Button sx={styles.actionButton} onClick={changeEditFormState}>
+                        <EditIcon/>
+                    </Button>
+                </Box>
+                : <Box sx={styles.actionsBlock}>
+                    <Button sx={styles.actionButton} onClick={downloadResume}>
+                        <DownloadIcon/>
+                    </Button>
+                </Box>
+            }
+
             <Breadcrumbs separator={<Typography variant="h4" sx={styles.separator}>/</Typography>}
                          sx={styles.breadcrumbs}>
                 <Typography component={Link} to="" variant="h4" sx={styles.text}>
@@ -58,27 +71,18 @@ const SpecialistInfoBlock: FC<Props> = (props) => {
                 </Typography>
             </Breadcrumbs>
 
-            {props.isEditable
-                ? <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
-                    <EditIcon/>
-                </Button>
-                : <Button sx={styles.editMainInfoButton} onClick={downloadResume}>
-                    <DownloadIcon/>
-                </Button>
-            }
-
-            <Dialog open={patchForm} onClose={changePatchFormState}>
+            <Dialog open={editFormState} onClose={changeEditFormState}>
                 <DialogTitle textAlign="center">
                     Change the data witch you want to update
                 </DialogTitle>
                 <DialogContent>
                     <SpecialistUpdatingForm
                         specialist={props.specialist}
-                        closeForm={changePatchFormState}
+                        closeForm={changeEditFormState}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={changePatchFormState}>CANCEL</Button>
+                    <Button onClick={changeEditFormState}>CANCEL</Button>
                 </DialogActions>
             </Dialog>
 
@@ -138,10 +142,11 @@ const styles = {
         background: BACKGROUND_COLOR,
         position: 'relative'
     },
-    editMainInfoButton: {
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
+    actionsBlock: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    actionButton: {
         color: TEXT_COLOR
     },
     text: {

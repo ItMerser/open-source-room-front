@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import {
     Paper,
@@ -7,13 +7,23 @@ import {
     Box,
     List,
     ListItem,
-    ListItemText, Button, Dialog, DialogTitle, DialogContent, DialogActions
+    ListItemText,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions
 } from '@mui/material'
+import ProjectUpdatingForm from 'components/forms/ProjectUpdatingForm/ProjectUpdatingForm'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import EditIcon from '@mui/icons-material/Edit'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import {IProject} from 'models/types/project'
+import {useTakePartInOwnProject} from 'hooks/project'
+import {useAppDispatch, useAppSelector} from 'store/config'
+import {setUpdateConfigurationData} from 'store/slices/commonSlice'
+import {setCurrentProject} from 'store/slices/specialistSlice'
 import {BACKGROUND_COLOR, TEXT_COLOR} from 'const/styles'
-import ProjectUpdatingForm from 'components/forms/ProjectUpdatingForm/ProjectUpdatingForm'
 
 interface Props {
     project: IProject
@@ -31,13 +41,44 @@ const existsFields = (project: IProject): string[] => {
 }
 
 const ProjectInfoBlock: FC<Props> = (props) => {
+    const {token, currentProject} = useAppSelector(state => state.specialistReducer)
     const fieldsForShow = props.isEditable ? additionalFields : existsFields(props.project)
-    const [patchForm, setPatchForm] = useState<boolean>(false)
+    const {status, takePart} = useTakePartInOwnProject()
+    const [editFormState, setEditFormState] = useState<boolean>(false)
 
-    const changePatchFormState = () => setPatchForm(!patchForm)
+    const isCurrentProject = (): boolean => {
+        return !!(currentProject && currentProject['id'] === props.project.id)
+    }
+
+    const changeEditFormState = () => setEditFormState(!editFormState)
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (status === 200) {
+            dispatch(setCurrentProject(props.project))
+            dispatch(setUpdateConfigurationData())
+        }
+    }, [status])
 
     return (
         <Paper elevation={12} sx={styles.paper}>
+            {props.isEditable &&
+                <Box sx={styles.actionsBlock}>
+                    {!isCurrentProject() &&
+                        <Button
+                            sx={styles.actionButton}
+                            onClick={() => takePart(props.project.id, token || '')
+                            }>
+                            <PersonAddIcon/>
+                        </Button>
+                    }
+                    <Button sx={styles.actionButton} onClick={changeEditFormState}>
+                        <EditIcon/>
+                    </Button>
+                </Box>
+            }
+
             <Breadcrumbs separator={<Typography variant="h4" sx={styles.separator}>/</Typography>}
                          sx={styles.breadcrumbs}>
                 <Typography component={Link} to="" variant="h4" sx={styles.text}>
@@ -49,24 +90,18 @@ const ProjectInfoBlock: FC<Props> = (props) => {
                 </Typography>
             </Breadcrumbs>
 
-            {props.isEditable &&
-                <Button sx={styles.editMainInfoButton} onClick={changePatchFormState}>
-                    <EditIcon/>
-                </Button>
-            }
-
-            <Dialog open={patchForm} onClose={changePatchFormState}>
+            <Dialog open={editFormState} onClose={changeEditFormState}>
                 <DialogTitle textAlign="center">
                     Change the data witch you want to update
                 </DialogTitle>
                 <DialogContent>
                     <ProjectUpdatingForm
                         project={props.project}
-                        closeForm={changePatchFormState}
+                        closeForm={changeEditFormState}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={changePatchFormState}>CANCEL</Button>
+                    <Button onClick={changeEditFormState}>CANCEL</Button>
                 </DialogActions>
             </Dialog>
 
@@ -140,10 +175,11 @@ const styles = {
         background: BACKGROUND_COLOR,
         position: 'relative'
     },
-    editMainInfoButton: {
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
+    actionsBlock: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    actionButton: {
         color: TEXT_COLOR
     },
     text: {
